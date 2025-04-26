@@ -1,0 +1,41 @@
+::ng-deep .p-tabview-nav li .p-tabview-nav-link {
+  border-bottom: 3px solid #e5e7eb;
+  transition: border-bottom 0.3s ease;
+  color: #4b5563;
+}
+
+::ng-deep .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-bottom: 3px solid #3b82f6;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.championship-header {
+  background-color: #2563eb;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.championship-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.date-badge {
+  background-color: white;
+  color: #2563eb;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+::ng-deep .p-tabview-panels {
+  padding: 0;
+}
