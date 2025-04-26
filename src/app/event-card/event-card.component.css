@@ -1,0 +1,101 @@
+.event-card {
+  background: #f5f7fa;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.left-section {
+  background-color: #2e7df6;
+  color: #ffffff;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.date-text p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.middle-section {
+  flex: 1;
+  background: #ffffff;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.event-tag {
+  font-size: 0.8rem;
+}
+
+.description {
+  margin: 1rem 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+.info {
+  display: flex;
+  gap: 2rem;
+  color: #777;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.info p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.category {
+  margin-top: 0.5rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+button.p-button {
+  width: 120px;
+}
+
+::ng-deep  .p-card-content {
+  display: flex;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+}

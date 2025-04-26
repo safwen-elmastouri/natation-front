@@ -1,0 +1,25 @@
+<p-card class="athlete-card">
+    <div class="card-top">
+      <img [src]="photoUrl" alt="{{ name }}" class="athlete-photo" />
+      <div class="stroke-tag">{{ stroke }}</div>
+    </div>
+  
+    <div class="card-bottom">
+      <h2>{{ name }}</h2>
+      <p class="club">{{ club }}</p>
+  
+      <div class="achievement">
+        <i class="pi pi-medal"></i>
+        <span>{{ achievement }}</span>
+      </div>
+  
+      <div class="country">
+        {{ country }}
+      </div>
+  
+      <div class="button-container">
+        <button pButton label="Voir Profil" class="p-button-outlined p-button-rounded p-button-sm"></button>
+      </div>
+    </div>
+  </p-card>
+  
