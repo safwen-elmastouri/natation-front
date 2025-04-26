@@ -1,0 +1,38 @@
+
+
+  .athlete-card {
+    background: linear-gradient(to bottom, #ffffffcc, #000000cc),
+      url('https://via.placeholder.com/800x400') center/cover no-repeat;
+    border-radius: 10px;
+    padding: 4rem;
+    color: white;
+  }
+
+  .badge-champion {
+    background-color: #facc15;
+    color: black;
+    font-weight: 600;
+    border-radius: 15px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+    display: inline-block;
+  }
+
+  .btn-profile {
+    background-color: white;
+    color: #1d4ed8;
+    font-weight: 500;
+  }
+
+  .athlete-img {
+    background-color: #e5e7eb;
+    display: block;
+    margin: auto;
+  }
+
+  .label {
+    color: gray;
+    font-weight: 500;
+  }
+
+  

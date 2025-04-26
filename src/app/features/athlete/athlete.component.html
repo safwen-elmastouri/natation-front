@@ -1,0 +1,124 @@
+<div class="container">
+  <h1 class="mt-2 fw-bold">Athlètes en vedette</h1>
+
+  <div class="row mt-4" *ngFor="let athlete of athletes">
+    <div class="col-md-4 text-center">
+      <img [src]="athlete.img" class="rounded-circle mb-1" style="width: 25%;" />
+      <h4 class="fw-bold">{{ athlete.nom }}</h4>
+      <p class="text-muted">{{ athlete.discipline }}</p>
+      <p class="text-warning">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+          <path d="M9.669.864 8 0 6.331.864 5.5 2.598 3.6 3.083l-.58 2.072 1.36 1.36-.36 2.072L5.5 9.402l.831 1.734 1.669.864 1.669-.864L10.5 9.402l1.12-1.815-.36-2.072 1.36-1.36-.58-2.072-1.9-.485L9.669.864z"/>
+        </svg>
+        {{ athlete.titre }}
+      </p>
+
+      <div class="row text-start mt-2">
+        <div class="col-6 label">Âge:</div>
+        <div class="col-6 fw-bold">{{ athlete.age }}</div>
+        <div class="col-6 label">Spécialité:</div>
+        <div class="col-6 fw-bold">{{ athlete.specialite }}</div>
+        <div class="col-6 label">Record:</div>
+        <div class="col-6 fw-bold">{{ athlete.record }}</div>
+      </div>
+
+      <button class="btn btn-outline-primary mt-4 w-100">Voir le profil</button>
+    </div>
+
+    <div class="col-md-8">
+      <div class="athlete-card d-flex flex-column justify-content-end">
+        <div class="badge-champion">Champion Olympique</div>
+        <h3 class="fw-bold">{{ athlete.nom }}</h3>
+        <p class="lead">{{ athlete.description }}</p>
+        <a href="#" class="btn btn-profile mt-2">Voir le profil</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<hr class="my-5" />
+<div class="container text-center">
+  <h2 class="fw-bold mb-3">Suivez les exploits de nos athlètes sur la scène internationale</h2>
+  <p class="lead text-muted mb-4">
+    Restez à jour avec les dernières performances, médailles et événements de nos champions tunisiens dans toutes les disciplines sportives.
+  </p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <img src="../../../assets/images/athlétisme.jpg" alt="Événement sportif" class="img-fluid rounded mb-3" />
+      <h5 class="fw-semibold">Coupe du monde d’athlétisme</h5>
+      <p class="text-muted">Suivez les résultats de nos stars tunisiennes en direct.</p>
+    </div>
+    <div class="col-md-4">
+      <img src="../../../assets/images/médailles.jpg" alt="Médailles et records" class="img-fluid rounded mb-3" />
+      <h5 class="fw-semibold">Palmarès & Records</h5>
+      <p class="text-muted">Consultez les statistiques des performances et records nationaux.</p>
+    </div>
+    <div class="col-md-4">
+      <img src="../../../assets/images/portrait athlete.jpg" alt="Portraits d'athlètes" class="img-fluid rounded mb-3" />
+      <h5 class="fw-semibold">Portraits d’athlètes</h5>
+      <p class="text-muted">Découvrez les parcours inspirants de nos champions.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h3 class="mb-4 text-center">Événements à venir</h3>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+<p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+  <img alt="Card" src="../../../assets/images/tunisia.png" style="width: 100%;height: 160px;" />
+  <h5 class="card-title">Meeting International de Tunis</h5>
+  <p class="card-text">📍 Stade Olympique de Radès<br>📅 27 Avril 2025</p>
+  <a href="#" class="btn btn-primary btn-sm">Voir les détails</a>
+</p-card>
+</div>
+
+<div class="col-md-4 mb-4">
+  <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+    <img src="../../../assets/images/alger.jpg" alt="Event 2" style="width: 100%;height: 160px;" />
+      <h5 class="card-title">Jeux Méditerranéens</h5>
+      <p class="card-text">📍 Oran, Algérie<br>📅 15 Mai 2025</p>
+      <a href="#" class="btn btn-primary btn-sm">Voir les détails</a>
+  </p-card>
+</div>
+<div class="col-md-4 mb-4">
+  <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+  <img src="../../../assets/images/egypte.jpg" alt="Event 3" />
+    <h5 class="card-title">Championnat d’Afrique de Natation</h5>
+    <p class="card-text">📍 Le Caire, Égypte<br>📅 3 Juin 2025</p>
+    <a href="#" class="btn btn-primary btn-sm">Voir les détails</a>
+</p-card>
+</div>
+  </div>
+</div>
+
+
+   
+
+  
+
+<div class="container my-5">
+  <h3 class="fw-bold mb-4 text-center">Actus & Interviews</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="d-flex flex-column justify-content-between h-100 border rounded p-4">
+        <h5 class="fw-semibold">Interview exclusive avec Ahmed Hafnaoui</h5>
+        <p class="text-muted">“Je me prépare mentalement et physiquement pour les Jeux Olympiques de Paris 2024.”</p>
+        <a href="#" class="btn btn-outline-secondary btn-sm align-self-start">Lire l’interview</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex flex-column justify-content-between h-100 border rounded p-4">
+        <h5 class="fw-semibold">Retour sur les Jeux Africains</h5>
+        <p class="text-muted">La Tunisie décroche 5 médailles en athlétisme et natation.</p>
+        <a href="#" class="btn btn-outline-secondary btn-sm align-self-start">Lire l’article</a>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+

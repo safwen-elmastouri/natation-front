@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { HeaderNavComponent } from './header-nav/header-nav.component';
+// import { HeaderNavComponent } from './header-nav/header-nav.component';
+import { HeaderNavComponent } from './features/header-nav/header-nav.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
 import { TableComponent } from './table/table.component';
@@ -15,6 +16,9 @@ import { EventCardComponent } from './event-card/event-card.component';
 import { TagModule } from 'primeng/tag';
 import { AthleteCardComponent } from './athlete-card/athlete-card.component';
 
+import { AthleteComponent } from "./features/athlete/athlete.component";
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,4 +44,4 @@ import { AthleteCardComponent } from './athlete-card/athlete-card.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

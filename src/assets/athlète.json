@@ -1,0 +1,13 @@
+[
+    {
+      "nom": "Ahmed Hafnaoui",
+      "img": "../assets/images/Ahmed hafnaoui.jpg",
+      "discipline": "Natation",
+      "titre": "Champion Olympique",
+      "age": 22,
+      "specialite": "400m nage libre",
+      "record": "3:43.36",
+      "description": "Ahmed est un nageur tunisien ayant remporté l’or aux Jeux Olympiques de Tokyo en 2021."
+    }
+  ]
+  

@@ -1,0 +1,22 @@
+
+.highlighted-text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.9);
+}
+.card{
+  border: none !important;
+  width: 100% !important;
+  background-image: linear-gradient(
+    to left,
+    rgb(23 37 84 / 0.8),
+    rgb(23 37 84 / 0)
+  );
+}
+::ng-deep a.p-menuitem-link {
+  text-decoration: none !important;
+}
