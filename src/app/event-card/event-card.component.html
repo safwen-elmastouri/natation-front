@@ -1,0 +1,33 @@
+<p-card class="event-card">
+  <div class="left-section">
+    <i class="pi pi-calendar calendar-icon"></i>
+    <div class="date-text">
+      <p>{{ startDate | date : "dd/MM/yyyy" }}</p>
+      <p>{{ endDate | date : "dd/MM/yyyy" }}</p>
+    </div>
+  </div>
+
+  <div class="middle-section">
+    <div class="header">
+      <div class="title-tag">
+        <h2>{{ title }}</h2>
+        <p-tag value="National" severity="info" class="event-tag"></p-tag>
+      </div>
+      <div class="buttons">
+        <button pButton label="Détails" class="p-button-secondary p-button-rounded p-button-sm"></button>
+        <button pButton label="S'inscrire" class="p-button-outlined p-button-rounded p-button-sm"></button>
+      </div>
+    </div>
+
+    <p class="description">{{ description }}</p>
+
+    <div class="info">
+      <p><i class="pi pi-map-marker"></i> {{ location }}</p>
+      <p><i class="pi pi-clock"></i> {{ startDate | date: 'dd/MM/yyyy' }} - {{ endDate | date: 'dd/MM/yyyy' }}</p>
+    </div>
+
+    <div class="category">
+      <button pButton label="Toutes catégories" class="p-button-outlined p-button-sm"></button>
+    </div>
+  </div>
+</p-card>
