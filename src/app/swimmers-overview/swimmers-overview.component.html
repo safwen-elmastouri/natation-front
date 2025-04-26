@@ -1,0 +1,63 @@
+  <div class="championship-header">
+    <h2>{{ championTitle }}</h2>
+    <span class="date-badge"> {{ championDateRange }} </span>
+  </div>
+
+  <p-tabView  [(activeIndex)]="selectedStyle" [style.padding]="'0'">
+    <p-tabPanel header="🏊‍♀️ Nage Libre"></p-tabPanel>
+    <p-tabPanel header="🏊‍♀️ Dos"></p-tabPanel>
+    <p-tabPanel header="🏊‍♀️ Brasse"></p-tabPanel>
+    <p-tabPanel header="🏊‍♀️ Papillon"></p-tabPanel>
+    <p-tabPanel header="🏊‍♀️ 4 Nages"></p-tabPanel>
+  </p-tabView>
+  <p-tabView [(activeIndex)]="selectedGender" [style.padding]="'0'">
+    <p-tabPanel *ngIf="femaleSwimmers" header="Female">
+      <p-table [value]="femaleSwimmers" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>PLACE</th>
+            <th>FULL NAME</th>
+            <th>CLUB</th>
+            <th>TIME</th>
+            <th>POINTS</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ swimmer.name }}</td>
+            <td>{{ swimmer.club }}</td>
+            <td>{{ swimmer.time }}</td>
+            <td>{{ swimmer.points }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+
+    <p-tabPanel *ngIf="maleSwimmers" header="Men">
+      <p-table [value]="maleSwimmers" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>PLACE</th>
+            <th>FULL NAME</th>
+            <th>CLUB</th>
+            <th>TIME</th>
+            <th>POINTS</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ swimmer.name }}</td>
+            <td>{{ swimmer.club }}</td>
+            <td>{{ swimmer.time }}</td>
+            <td>{{ swimmer.points }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+  <div>
+
+    
+  </div>

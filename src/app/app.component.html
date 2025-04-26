@@ -1,3 +1,46 @@
 <div class="card flex justify-center">
-<app-header-nav></app-header-nav>
+  <app-header-nav></app-header-nav>
+  <app-swimmers-overview></app-swimmers-overview>
+  <app-event-card
+    title="Championnat de Tunisie Open"
+    description="Championnat national toutes catégories en grand bassin (50m)."
+    location="Piscine Olympique, Radès"
+    [startDate]="eventStartDate"
+    [endDate]="eventEndDate"
+  >
+  </app-event-card>
+</div>
+
+<app-event-card
+  title="Championnat de Tunisie Open"
+  description="Championnat national toutes catégories en grand bassin (50m)."
+  location="Piscine Olympique, Radès"
+  [startDate]="eventStartDate"
+  [endDate]="eventEndDate"
+/>
+<div style="display: flex">
+  <app-athlete-card
+    [photoUrl]="'../assets/hafnaoui.jpg'"
+    [name]="'Ahmed Hafnaoui'"
+    [club]="'EST'"
+    [achievement]="'Champion Olympique 1500m'"
+    [country]="'NL'"
+    [stroke]="'Nage Libre'"
+  ></app-athlete-card
+  ><app-athlete-card
+    [photoUrl]="'../assets/hafnaoui.jpg'"
+    [name]="'Ahmed Hafnaoui'"
+    [club]="'EST'"
+    [achievement]="'Champion Olympique 1500m'"
+    [country]="'NL'"
+    [stroke]="'Nage Libre'"
+  />
+  <app-athlete-card
+    [photoUrl]="'../assets/hafnaoui.jpg'"
+    [name]="'Ahmed Hafnaoui'"
+    [club]="'EST'"
+    [achievement]="'Champion Olympique 1500m'"
+    [country]="'NL'"
+    [stroke]="'Nage Libre'"
+  />
 </div>

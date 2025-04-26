@@ -4,14 +4,39 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { ButtonDemo } from './button-demo/button-demo.component';
 import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
+import { TableComponent } from './table/table.component';
+import { SwimmersOverviewComponent } from './swimmers-overview/swimmers-overview.component';
+import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview';
+import { EventCardComponent } from './event-card/event-card.component';
+import { TagModule } from 'primeng/tag';
+import { AthleteCardComponent } from './athlete-card/athlete-card.component';
+
 
 @NgModule({
-  declarations: [AppComponent, ButtonDemo, HeaderNavComponent],
-  imports: [BrowserModule, ButtonModule, CardModule, MenubarModule, ImageModule],
+  declarations: [
+    AppComponent,
+    HeaderNavComponent,
+    TableComponent,
+    SwimmersOverviewComponent,
+    EventCardComponent,
+    AthleteCardComponent,
+  ],
+  imports: [
+    BrowserModule,
+    CardModule,
+    ButtonModule,
+    CardModule,
+    MenubarModule,
+    ImageModule,
+    TableModule,
+    TabViewModule,
+    TagModule
+
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

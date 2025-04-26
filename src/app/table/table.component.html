@@ -1,0 +1,21 @@
+<p-table [value]="swimmers" [tableStyle]="{ 'min-width': '50rem' }" class="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>PLACE</th>
+        <th>NOM ET PRÉNOM</th>
+        <th>CLUB</th>
+        <th>TEMPS</th>
+        <th>POINTS</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
+      <tr>
+        <td><span class="place-badge">{{ i + 1 }}</span></td>
+        <td>{{ swimmer.name }}</td>
+        <td>{{ swimmer.club }}</td>
+        <td>{{ swimmer.time }}</td>
+        <td>{{ swimmer.points }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  

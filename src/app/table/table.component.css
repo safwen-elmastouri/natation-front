@@ -1,0 +1,12 @@
+.place-badge {
+    background-color: #eef4ff;
+    color: #0044cc;
+    border-radius: 50%;
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    font-weight: bold;
+  }
+  
