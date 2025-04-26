@@ -1,16 +1,21 @@
-# Editor configuration, see https://editorconfig.org
-root = true
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-[*]
-charset = utf-8
-indent_style = space
-indent_size = 2
-insert_final_newline = true
-trim_trailing_whitespace = true
+import { EventCardComponent } from './event-card.component';
 
-[*.ts]
-quote_type = single
+describe('EventCardComponent', () => {
+  let component: EventCardComponent;
+  let fixture: ComponentFixture<EventCardComponent>;
 
-[*.md]
-max_line_length = off
-trim_trailing_whitespace = false
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [EventCardComponent]
+    });
+    fixture = TestBed.createComponent(EventCardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
