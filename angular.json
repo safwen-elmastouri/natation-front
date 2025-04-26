@@ -53,10 +53,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "natation-front:build:production"
+              "buildTarget": "natation-front:build:production"
             },
             "development": {
-              "browserTarget": "natation-front:build:development"
+              "buildTarget": "natation-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -64,7 +64,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "natation-front:build"
+            "buildTarget": "natation-front:build"
           }
         },
         "test": {
@@ -84,5 +84,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

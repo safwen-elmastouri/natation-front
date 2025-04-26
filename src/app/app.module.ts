@@ -4,15 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { ButtonDemo } from './button-demo/button-demo.component';
-import { HeaderNavComponent } from './header-nav/header-nav.component';
+import { HeaderNavComponent } from './features/header-nav/header-nav.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
+import { AthleteComponent } from "./features/athlete/athlete.component";
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, ButtonDemo, HeaderNavComponent],
-  imports: [BrowserModule, ButtonModule, CardModule, MenubarModule, ImageModule],
+  declarations: [AppComponent, HeaderNavComponent],
+  imports: [BrowserModule, ButtonModule, CardModule, MenubarModule, ImageModule,AppRoutingModule,HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

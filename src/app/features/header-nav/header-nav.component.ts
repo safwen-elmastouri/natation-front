@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-header-nav',
@@ -15,6 +14,7 @@ export class HeaderNavComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-home',
+        routerLink: ['/home'],
       },
       {
         label: 'Competitions',
@@ -23,6 +23,7 @@ export class HeaderNavComponent implements OnInit {
       {
         label: 'Athletes',
         icon: 'pi pi-search',
+        routerLink: ['/athlete'],
         items: [
           {
             label: 'Tunisian',
