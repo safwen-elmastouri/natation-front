@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { MenubarModule } from 'primeng/menubar';
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -12,3 +13,4 @@ import { MenubarModule } from 'primeng/menubar';
 export class HomeComponent {
 
 }
+
