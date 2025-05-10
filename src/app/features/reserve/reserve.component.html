@@ -1,0 +1,50 @@
+<form (ngSubmit)="onSubmit()" #form="ngForm" class="form">
+    <h2>Réservation du coach - Piscine</h2>
+  
+    <div class="field">
+      <label for="date">Date</label>
+      <input id="date" type="date" name="date" [(ngModel)]="reservation.date" required />
+    </div>
+  
+    <div class="field">
+      <label for="time">Heure</label>
+      <input id="time" type="time" name="time" [(ngModel)]="reservation.time" required />
+    </div>
+  
+    <div class="field">
+      <label for="equipe">Équipe</label>
+      <input id="equipe" type="text" name="equipe" [(ngModel)]="reservation.equipe" required />
+    </div>
+  
+    <div class="field">
+      <label for="couloir">Couloir</label>
+      <select id="couloir" name="couloir" [(ngModel)]="reservation.couloir" required>
+        <option value="">-- Choisissez --</option>
+        <option *ngFor="let c of couloirs" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  
+    <div class="field">
+      <label for="piscine">Piscine</label>
+      <input id="piscine" type="text" name="piscine" [(ngModel)]="reservation.piscine" required />
+    </div>
+  
+    <button type="submit">Réserver</button>
+  </form>
+  
+  <!-- modal overlay -->
+  <div class="modal" *ngIf="submitted" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>Réservation confirmée</h3>
+      <ul>
+        <li><strong>Date :</strong> {{ reservation.date }}</li>
+        <li><strong>Heure :</strong> {{ reservation.time }}</li>
+        <li><strong>Équipe :</strong> {{ reservation.equipe }}</li>
+        <li><strong>Couloir :</strong> {{ reservation.couloir }}</li>
+        <li><strong>Piscine :</strong> {{ reservation.piscine }}</li>
+      </ul>
+      <button (click)="closeModal()">Fermer</button>
+    </div>
+  </div>
+  
