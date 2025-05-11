@@ -19,6 +19,8 @@ export class HeaderNavComponent implements OnInit {
       {
         label: 'Competitions',
         icon: 'pi pi-star',
+        routerLink: ['/competitions']
+
       },
       {
         label: 'Athletes',

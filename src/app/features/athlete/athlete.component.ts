@@ -7,10 +7,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-athlete',
-  standalone: true,
-  imports: [FormsModule,CommonModule,ButtonModule,CardModule],
   templateUrl: './athlete.component.html',
-  styleUrl: './athlete.component.css'
+  styleUrls: ['./athlete.component.css']
 })
 export class AthleteComponent implements OnInit {
   athletes: any[] = [];

@@ -1,0 +1,72 @@
+<div class="filters-card">
+  <div class="filters-header">
+    <i class="pi pi-filter" style="margin-right: 8px;"></i>
+    <span class="header-title">Filtres</span>
+  </div>
+
+  <div class="filter-group">
+    <label for="saison">Saison</label>
+    <p-dropdown
+      inputId="saison"
+      [options]="saisons"
+      [(ngModel)]="selectedSaison"
+      placeholder="Sélectionnez une saison"
+      optionLabel="label"
+      optionValue="value">
+    </p-dropdown>
+  </div>
+
+  <div class="filter-group">
+    <label for="competition">Compétition</label>
+    <p-dropdown
+      inputId="competition"
+      [options]="competitions"
+      [(ngModel)]="selectedCompetition"
+      placeholder="Toutes les compétitions"
+      optionLabel="label"
+      optionValue="value">
+    </p-dropdown>
+  </div>
+
+  <div class="filter-group">
+    <label for="categorie">Catégorie</label>
+    <p-dropdown
+      inputId="categorie"
+      [options]="categories"
+      [(ngModel)]="selectedCategorie"
+      placeholder="Toutes les catégories"
+      optionLabel="label"
+      optionValue="value">
+    </p-dropdown>
+  </div>
+
+  <div class="filter-group">
+    <label for="bassin">Bassin</label>
+    <p-dropdown
+      inputId="bassin"
+      [options]="bassins"
+      [(ngModel)]="selectedBassin"
+      placeholder="Tous les bassins"
+      optionLabel="label"
+      optionValue="value">
+    </p-dropdown>
+  </div>
+
+  <div class="filter-group">
+    <label for="sexe">Sexe</label>
+    <p-dropdown
+      inputId="sexe"
+      [options]="sexes"
+      [(ngModel)]="selectedSexe"
+      placeholder="Tous"
+      optionLabel="label"
+      optionValue="value">
+    </p-dropdown>
+  </div>
+
+  <p-button
+    label="Appliquer les filtres"
+    class="p-button-raised p-button-primary full-width"
+    (onClick)="applyFilters()">
+  </p-button>
+</div>

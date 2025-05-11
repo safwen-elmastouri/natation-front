@@ -1,0 +1,8 @@
+.competitions-container {
+  display: flex;
+}
+
+.competitions-card {
+  display: inline-flex;
+  flex-direction: column;
+}

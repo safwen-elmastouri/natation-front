@@ -1,0 +1,12 @@
+<div class="competitions-container">
+  <filter />
+  <div class="competitions-card">
+    <competition-card
+      *ngFor="let comp of competitions"
+      [title]="comp.title"
+      [bassin]="comp.bassin"
+      [dateRange]="comp.dateRange"
+      [categoryLabel]="comp.categoryLabel"
+    />
+  </div>
+</div>

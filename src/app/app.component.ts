@@ -8,6 +8,5 @@ import { MenubarModule } from 'primeng/menubar';
 })
 export class AppComponent {
   title = 'natation-front';
-  eventStartDate = new Date('2025-05-15');
-  eventEndDate = new Date('2025-05-18');
+
 }

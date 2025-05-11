@@ -8,7 +8,7 @@ import { MenubarModule } from 'primeng/menubar';
   standalone: true,
   imports: [ImageModule,MenubarModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
 
