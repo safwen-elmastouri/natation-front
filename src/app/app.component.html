@@ -1,13 +1,13 @@
 <div class="card flex justify-center">
   <app-header-nav></app-header-nav>
-  <!-- <app-reserve></app-reserve> -->
-   <app-swimmers-overview></app-swimmers-overview> 
+  <app-swimmers-overview></app-swimmers-overview>
   <app-event-card
     title="Championnat de Tunisie Open"
     description="Championnat national toutes catégories en grand bassin (50m)."
     location="Piscine Olympique, Radès"
     [startDate]="eventStartDate"
-    [endDate]="eventEndDate">
+    [endDate]="eventEndDate"
+  >
   </app-event-card>
 </div>
 
@@ -44,7 +44,4 @@
     [country]="'NL'"
     [stroke]="'Nage Libre'"
   />
-<router-outlet></router-outlet>
 </div>
-
-

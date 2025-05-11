@@ -4,8 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { HeaderNavComponent } from './features/header-nav/header-nav.component';
-// import { HeaderNavComponent } from './header-nav/header-nav.component';
+import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
 import { TableComponent } from './table/table.component';
@@ -15,7 +14,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { EventCardComponent } from './event-card/event-card.component';
 import { TagModule } from 'primeng/tag';
 import { AthleteCardComponent } from './athlete-card/athlete-card.component';
-import { ReserveComponent } from "./features/reserve/reserve.component";
+
 
 @NgModule({
   declarations: [
@@ -35,12 +34,10 @@ import { ReserveComponent } from "./features/reserve/reserve.component";
     ImageModule,
     TableModule,
     TabViewModule,
-    TagModule,
-    AthleteComponent,
-    ReserveComponent
-],
+    TagModule
+
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
