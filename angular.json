@@ -51,6 +51,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "natation-front:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "natation-front:build:production"
@@ -84,5 +87,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
