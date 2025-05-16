@@ -2,51 +2,102 @@
   max-width: 900px;
   margin: 24px auto;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.classements-accordion {
+  max-width: 900px;
+  margin: 24px auto;
+}
+
+.classements-content {
+  padding: 16px 0;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+
+  th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    font-weight: 600;
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.export-btn {
+  background-color: #388e3c;
+}
+
+.export-btn:hover {
+  background-color: #2e7d32;
+}
+
+.menu-btn {
+  background-color: #1976d2;
+}
+
+.menu-btn:hover:not(:disabled) {
+  background-color: #155a9c;
 }
 
 .calendar-wrapper {
   position: relative;
   max-width: 900px;
   margin: 24px auto;
-  .fc .fc-event {
-    cursor: pointer; /* hand cursor */
-  }
 }
 
-/* Custom actions menu dropdown */
-.actions-menu {
+.actions-dropdown {
   position: absolute;
-  top: 8px;
+  top: 40px;
   right: 8px;
-  background: white;
+  background: #fff;
   border: 1px solid rgba(0,0,0,0.15);
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
   display: flex;
   flex-direction: column;
-
-  button {
-    width: 180px;
-    justify-content: flex-start;
-  }
 }
 
-/* Classements panel overlay */
-.classements-panel {
-  position: absolute;
-  top: 48px;
-  right: 8px;
-  width: 320px;
-  max-height: 70vh;
-  overflow: auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  padding: 8px;
+.dropdown-btn {
+  background: none;
+  color: #333;
+  text-align: left;
+  padding: 8px 16px;
+  margin: 0;
+  border: none;
 }
 
-/* Make modal always on top */
+.dropdown-btn:hover {
+  background-color: rgba(25,118,210,0.1);
+}
+
 ::ng-deep .event-modal-overlay {
-  z-index: 10000 !important;
+  z-index: 9999 !important;
 }

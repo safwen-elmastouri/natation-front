@@ -8,43 +8,87 @@
     "specialite": "100 m haies",
     "record": "12.85 s",
     "titre": "Championne de Tunisie 2024",
-    "image": "assets/images/athletes/leila.jpg",
-    "reservation": [
-      { "id": 201, "date": "2025-04-11", "description": "Séance d'entraînement" }
-    ],
+    "image": "assets/leila.jpg",
     "events": [
       {
         "id": 101,
         "eventTitle": "Meeting International de Tunis",
-        "competitionTitle": "Championnats Arabes",
         "damesUrl": "https://example.com/arabes/dames",
         "messieursUrl": "https://example.com/arabes/messieurs",
         "mixteUrl": "https://example.com/arabes/mixte",
         "competition": {
           "id": 501,
           "title": "Championnats Arabes 2025",
-          "url": "https://example.com/arabes",
-          "season": "Printemps",
           "dateStart": "2025-04-10",
           "dateEnd": "2025-04-12"
         },
         "rankings": [
           {
-            "id": 1001,
-            "competitionTitle": "Championnats Arabes 2025",
-            "competitionUrl": "https://example.com/arabes",
-            "eventName": "Séries",
-            "category": "dames",
-            "categoryUrl": "https://example.com/arabes/dames",
-            "eventTitle": "Séries",
             "place": "1",
+            "eventName": "Séries",
             "fullName": "Leïla Ben Youssef",
             "nation": "TUN",
-            "birthYear": "1998",
             "club": "Club Olympique de Tunis",
-            "time": "13.10",
-            "points": "1100",
-            "passageTime": "4.35, 8.70"
+            "points": "1100"
+          }
+        ]
+      },
+      {
+        "id": 102,
+        "eventTitle": "Jeux Méditerranéens",
+        "damesUrl": "https://example.com/med/dames",
+        "messieursUrl": "https://example.com/med/messieurs",
+        "mixteUrl": "https://example.com/med/mixte",
+        "competition": {
+          "id": 502,
+          "title": "Jeux Méditerranéens 2025",
+          "dateStart": "2025-05-01",
+          "dateEnd": "2025-05-03"
+        },
+        "rankings": [
+          {
+            "place": "2",
+            "eventName": "Finale",
+            "fullName": "Leïla Ben Youssef",
+            "nation": "TUN",
+            "club": "Club Olympique de Tunis",
+            "points": "980"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nom": "Nassim Mahjoub",
+    "discipline": "Lutte gréco-romaine",
+    "description": "Lutteur national, vainqueur des compétitions universitaires.",
+    "age": 24,
+    "specialite": "Poids léger",
+    "record": "Champion universitaire 3 années",
+    "titre": "Champion universitaire 2024",
+    "image": "assets/nassim.jpg",
+    "events": [
+      {
+        "id": 201,
+        "eventTitle": "Tournoi National de Lutte",
+        "damesUrl": "https://example.com/lutte/dames",
+        "messieursUrl": "https://example.com/lutte/messieurs",
+        "mixteUrl": "https://example.com/lutte/mixte",
+        "competition": {
+          "id": 601,
+          "title": "Tournoi National 2025",
+          "dateStart": "2025-05-15",
+          "dateEnd": "2025-05-17"
+        },
+        "rankings": [
+          {
+            "place": "1",
+            "eventName": "Finale",
+            "fullName": "Nassim Mahjoub",
+            "nation": "TUN",
+            "club": "Espérance Sportive de Tunis",
+            "points": "1200"
           }
         ]
       }

@@ -43,6 +43,7 @@ import { AthleteProfileComponent } from './views/athlete-profile/athlete-profile
 import { EventModalComponent }     from './views/athlete-profile/event-modal/event-modal.component';
 
 import { MatMenuModule }     from '@angular/material/menu';
+import { MatExpansionModule }    from '@angular/material/expansion';
 
 
 @NgModule({
@@ -79,17 +80,16 @@ import { MatMenuModule }     from '@angular/material/menu';
     TagModule,
     DropdownModule,
 
-    // FullCalendar (no registerPlugins here!)
     FullCalendarModule,
     ReserveComponent,
-    // Angular Material
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
     MatTableModule,     
     MatIconModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule
 
   ],
   providers: [],
