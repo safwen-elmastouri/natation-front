@@ -8,7 +8,6 @@ import { CommonModule }            from '@angular/common';
 import { AppRoutingModule }        from './app-routing.module';
 import { AppComponent }            from './app.component';
 
-// PrimeNG modules
 import { ButtonModule }            from 'primeng/button';
 import { CardModule }              from 'primeng/card';
 import { MenubarModule }           from 'primeng/menubar';
@@ -18,7 +17,6 @@ import { TabViewModule }           from 'primeng/tabview';
 import { TagModule }               from 'primeng/tag';
 import { DropdownModule }          from 'primeng/dropdown';
 
-// Your existing features/components
 import { HeaderNavComponent }      from './features/header-nav/header-nav.component';
 import { TableComponent }          from './table/table.component';
 import { SwimmersOverviewComponent } from './swimmers-overview/swimmers-overview.component';
@@ -31,10 +29,9 @@ import { CompetitionCardComponent } from './component/competition-card/competiti
 import { AthleteComponent }        from './features/athlete/athlete.component';
 import { ReserveComponent }        from './features/reserve/reserve.component';
 
-// FullCalendar
+
 import { FullCalendarModule }      from '@fullcalendar/angular';
 
-// Angular Material
 import { MatCardModule }           from '@angular/material/card';
 import { MatButtonModule }         from '@angular/material/button';
 import { MatDialogModule }         from '@angular/material/dialog';
@@ -42,7 +39,6 @@ import { MatTableModule }          from '@angular/material/table';
 import { MatIconModule }           from '@angular/material/icon';
 import { MatTooltipModule }        from '@angular/material/tooltip';
 
-// Your new Athlete Profile view
 import { AthleteProfileComponent } from './views/athlete-profile/athlete-profile.component';
 import { EventModalComponent }     from './views/athlete-profile/event-modal/event-modal.component';
 
