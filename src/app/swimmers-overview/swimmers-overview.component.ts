@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-swimmers-overview',
+  standalone: true,
+  imports: [  CommonModule, FormsModule],
   templateUrl: './swimmers-overview.component.html',
   styleUrls: ['./swimmers-overview.component.css'],
 })

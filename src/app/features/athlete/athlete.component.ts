@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CardModule } from 'primeng/card';
+import { Card, CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-athlete',
+  standalone: true,
+  imports: [CommonModule, FormsModule,CardModule, ButtonModule],
   templateUrl: './athlete.component.html',
   styleUrls: ['./athlete.component.css']
 })

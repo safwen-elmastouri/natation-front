@@ -1,0 +1,39 @@
+<div class="card flex flex-col items-center">  <p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+    [autoplayInterval]="3000"
+    class="w-full"
+  >
+      <ng-template pTemplate="item" let-product>
+        <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+          <div class="mb-4">
+            <div class="relative mx-auto">
+              <p-tag
+                [value]="product.inventoryStatus"
+                [severity]="getSeverity(product.inventoryStatus)"
+                class="absolute"
+                styleClass="dark:!bg-surface-900"
+                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+              />
+            </div>
+          </div>
+    
+          <div class="mb-2 text-center">
+            <img [src]="product.image" alt="{{ product.athlete }}" style="height: 250px;width: 80%;"/>
+            <div class="font-semibold">{{ product.athlete }}</div>
+          </div>
+    
+          <div class="mb-4 font-medium">{{ product.name }}</div>
+          <div class="text-sm text-gray-500 mb-2">
+            <div><strong>Événement :</strong> {{ product.event }}</div>
+            <div><strong>Lieu :</strong> {{ product.location }}</div>
+            <div><strong>Date :</strong> {{ product.date }}</div>
+            <div><strong>Résultat :</strong> {{ product.result }}</div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>

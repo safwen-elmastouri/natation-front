@@ -1,0 +1,91 @@
+.content-image {
+  position: relative;
+  background-image: url('https://www.ffnatation.fr/sites/default/files/2023-10/newsletter.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* footer avec vague */
+.site-footer {
+  position: relative;
+  background-color: #0a2540;
+  color: #ffffff;
+  padding: 60px 20px 20px;
+  font-family: 'Figtree', sans-serif;
+  overflow: hidden;
+}
+
+.site-footer::before {
+  background-image: url('https://www.ffnatation.fr/themes/custom/lmc_barrio/images/site/svg/bg/footer_wave.svg');
+  content: "";
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  top: -45px;
+  left: 0;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.footer-logo img {
+  margin-bottom: 8px;
+}
+
+
+.footer-links, .footer-social {
+  min-width: 150px;
+}
+
+.footer-links h4, .footer-social h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-links ul,
+.footer-social ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li,
+.footer-social li {
+  margin-bottom: 8px;
+}
+
+.footer-links a,
+.footer-social a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-social a:hover {
+  color: #00bcd4;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 30px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+

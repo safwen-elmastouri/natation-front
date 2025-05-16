@@ -1,3 +1,15 @@
 <div class="card">
-  <p-menubar [model]="items" />
-</div>
+    <p-menubar [model]="items">
+      <ng-template pTemplate="end">
+        <div class="menu-icons">
+          <a routerLink="/login" class="p-button p-button-text">
+            <i class="pi pi-sign-in"></i> Login
+          </a>
+          <a routerLink="/signin" class="p-button p-button-text">
+            <i class="pi pi-user-plus"></i> Signup
+          </a>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </div>
+  

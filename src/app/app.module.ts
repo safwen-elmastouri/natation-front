@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { HeaderNavComponent } from './features/header-nav/header-nav.component';
-// import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
 import { TableComponent } from './table/table.component';
@@ -27,27 +26,30 @@ import { CompetitionCardComponent } from './component/competition-card/competiti
 import { AthleteComponent } from './features/athlete/athlete.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { FooterComponent } from './features/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderNavComponent,
     TableComponent,
-    SwimmersOverviewComponent,
     EventCardComponent,
     AthleteCardComponent,
-    LandingPageComponent,
     FilterComponent,
     CompetitionsComponent,
     CompetitionCardComponent,
-    AthleteComponent,
+ 
   ],
   imports: [
     BrowserModule,
     CardModule,
     ButtonModule,
     MenubarModule,
+    LandingPageComponent,
     ImageModule,
+    RouterModule,
+    SwimmersOverviewComponent,
+    AthleteComponent,
     TableModule,
     TabViewModule,
     TagModule,
@@ -57,6 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,
+    FooterComponent,
+    HeaderNavComponent,
     HttpClientModule
   ],
 
