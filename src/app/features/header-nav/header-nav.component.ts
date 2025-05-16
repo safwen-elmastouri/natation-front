@@ -88,12 +88,12 @@ export class HeaderNavComponent implements OnInit {
       //   label: 'Signup', icon: 'pi pi-user-plus', routerLink: '/signup',
       //   styleClass: 'mobile-only'
       // }
-    ];
+    
       {
         label: 'Contact',
         icon: 'pi pi-envelope',
       },
-    ]
+    ];
     
   }
 }
