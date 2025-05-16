@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'filter',
+  standalone: true,
+  imports: [DropdownModule,FormsModule,ButtonModule],  
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css'],
 })

@@ -61,6 +61,12 @@ export class HeaderNavComponent implements OnInit {
         ],
       },
       {
+        label: 'Profil',
+        icon: 'pi pi-star',
+        routerLink: ['/profilathlete/1']
+
+      },
+      {
         label: 'Réservation',
         icon: 'pi pi-envelope',
         routerLink: ['/reserve'],
@@ -82,6 +88,12 @@ export class HeaderNavComponent implements OnInit {
       //   label: 'Signup', icon: 'pi pi-user-plus', routerLink: '/signup',
       //   styleClass: 'mobile-only'
       // }
+    
+      {
+        label: 'Contact',
+        icon: 'pi pi-envelope',
+      },
     ];
+    
   }
 }

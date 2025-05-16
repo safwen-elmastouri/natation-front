@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ data.event.eventTitle }}</h2>
+<mat-dialog-content>
+  <p>
+    <strong>Compétition :</strong>
+    {{ data.event.competition.title }}
+    ({{ data.event.competition.dateStart }} – {{ data.event.competition.dateEnd }})
+  </p>
+  <p>
+    <a [href]="data.event.damesUrl" target="_blank">Dames</a> |
+    <a [href]="data.event.messieursUrl" target="_blank">Messieurs</a> |
+    <a [href]="data.event.mixteUrl" target="_blank">Mixte</a>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="respond('decline')">Refuser</button>
+  <button mat-raised-button color="primary" (click)="respond('accept')">Accepter</button>
+</mat-dialog-actions>

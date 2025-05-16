@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-swimmers-overview',
   standalone: true,
-  imports: [  CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './swimmers-overview.component.html',
   styleUrls: ['./swimmers-overview.component.css'],
 })

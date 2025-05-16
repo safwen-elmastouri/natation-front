@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "nom": "Leïla Ben Youssef",
+    "discipline": "Athlétisme",
+    "description": "Spécialiste du 100 m haies, médaillée aux championnats nationaux.",
+    "age": 27,
+    "specialite": "100 m haies",
+    "record": "12.85 s",
+    "titre": "Championne de Tunisie 2024",
+    "image": "assets/leila.jpg",
+    "events": [
+      {
+        "id": 101,
+        "eventTitle": "Meeting International de Tunis",
+        "damesUrl": "https://example.com/arabes/dames",
+        "messieursUrl": "https://example.com/arabes/messieurs",
+        "mixteUrl": "https://example.com/arabes/mixte",
+        "competition": {
+          "id": 501,
+          "title": "Championnats Arabes 2025",
+          "dateStart": "2025-04-10",
+          "dateEnd": "2025-04-12"
+        },
+        "rankings": [
+          {
+            "place": "1",
+            "eventName": "Séries",
+            "fullName": "Leïla Ben Youssef",
+            "nation": "TUN",
+            "club": "Club Olympique de Tunis",
+            "points": "1100"
+          }
+        ]
+      },
+      {
+        "id": 102,
+        "eventTitle": "Jeux Méditerranéens",
+        "damesUrl": "https://example.com/med/dames",
+        "messieursUrl": "https://example.com/med/messieurs",
+        "mixteUrl": "https://example.com/med/mixte",
+        "competition": {
+          "id": 502,
+          "title": "Jeux Méditerranéens 2025",
+          "dateStart": "2025-05-01",
+          "dateEnd": "2025-05-03"
+        },
+        "rankings": [
+          {
+            "place": "2",
+            "eventName": "Finale",
+            "fullName": "Leïla Ben Youssef",
+            "nation": "TUN",
+            "club": "Club Olympique de Tunis",
+            "points": "980"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nom": "Nassim Mahjoub",
+    "discipline": "Lutte gréco-romaine",
+    "description": "Lutteur national, vainqueur des compétitions universitaires.",
+    "age": 24,
+    "specialite": "Poids léger",
+    "record": "Champion universitaire 3 années",
+    "titre": "Champion universitaire 2024",
+    "image": "assets/nassim.jpg",
+    "events": [
+      {
+        "id": 201,
+        "eventTitle": "Tournoi National de Lutte",
+        "damesUrl": "https://example.com/lutte/dames",
+        "messieursUrl": "https://example.com/lutte/messieurs",
+        "mixteUrl": "https://example.com/lutte/mixte",
+        "competition": {
+          "id": 601,
+          "title": "Tournoi National 2025",
+          "dateStart": "2025-05-15",
+          "dateEnd": "2025-05-17"
+        },
+        "rankings": [
+          {
+            "place": "1",
+            "eventName": "Finale",
+            "fullName": "Nassim Mahjoub",
+            "nation": "TUN",
+            "club": "Espérance Sportive de Tunis",
+            "points": "1200"
+          }
+        ]
+      }
+    ]
+  }
+]
