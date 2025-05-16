@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "nom": "Leïla Ben Youssef",
+    "discipline": "Athlétisme",
+    "description": "Spécialiste du 100 m haies, médaillée aux championnats nationaux.",
+    "age": 27,
+    "specialite": "100 m haies",
+    "record": "12.85 s",
+    "titre": "Championne de Tunisie 2024",
+    "image": "assets/images/athletes/leila.jpg",
+    "reservation": [
+      { "id": 201, "date": "2025-04-11", "description": "Séance d'entraînement" }
+    ],
+    "events": [
+      {
+        "id": 101,
+        "eventTitle": "Meeting International de Tunis",
+        "competitionTitle": "Championnats Arabes",
+        "damesUrl": "https://example.com/arabes/dames",
+        "messieursUrl": "https://example.com/arabes/messieurs",
+        "mixteUrl": "https://example.com/arabes/mixte",
+        "competition": {
+          "id": 501,
+          "title": "Championnats Arabes 2025",
+          "url": "https://example.com/arabes",
+          "season": "Printemps",
+          "dateStart": "2025-04-10",
+          "dateEnd": "2025-04-12"
+        },
+        "rankings": [
+          {
+            "id": 1001,
+            "competitionTitle": "Championnats Arabes 2025",
+            "competitionUrl": "https://example.com/arabes",
+            "eventName": "Séries",
+            "category": "dames",
+            "categoryUrl": "https://example.com/arabes/dames",
+            "eventTitle": "Séries",
+            "place": "1",
+            "fullName": "Leïla Ben Youssef",
+            "nation": "TUN",
+            "birthYear": "1998",
+            "club": "Club Olympique de Tunis",
+            "time": "13.10",
+            "points": "1100",
+            "passageTime": "4.35, 8.70"
+          }
+        ]
+      }
+    ]
+  }
+]

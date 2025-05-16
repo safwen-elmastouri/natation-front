@@ -1,32 +1,53 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { HeaderNavComponent } from './features/header-nav/header-nav.component';
-// import { HeaderNavComponent } from './header-nav/header-nav.component';
-import { MenubarModule } from 'primeng/menubar';
-import { ImageModule } from 'primeng/image';
-import { TableComponent } from './table/table.component';
-import { SwimmersOverviewComponent } from './swimmers-overview/swimmers-overview.component';
-import { TableModule } from 'primeng/table';
-import { TabViewModule } from 'primeng/tabview';
-import { EventCardComponent } from './event-card/event-card.component';
-import { TagModule } from 'primeng/tag';
-import { AthleteCardComponent } from './athlete-card/athlete-card.component';
-import { ReserveComponent } from './features/reserve/reserve.component';
-import { LandingPageComponent } from '../app/component/landing-page/landing-page.component';
-import { FilterComponent } from '../app/component/filter/filter.component';
-import { CompetitionsComponent } from '../app/views/competitions/competitions.component';
-import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
-import { AppRoutingModule } from './app-routing.module';
+import { NgModule }                from '@angular/core';
+import { BrowserModule }           from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CompetitionCardComponent } from './component/competition-card/competition-card.component'; // ✅ Add this
-import { AthleteComponent } from './features/athlete/athlete.component';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule }        from '@angular/common/http';
+import { FormsModule }             from '@angular/forms';
+import { CommonModule }            from '@angular/common';
+
+import { AppRoutingModule }        from './app-routing.module';
+import { AppComponent }            from './app.component';
+
+// PrimeNG modules
+import { ButtonModule }            from 'primeng/button';
+import { CardModule }              from 'primeng/card';
+import { MenubarModule }           from 'primeng/menubar';
+import { ImageModule }             from 'primeng/image';
+import { TableModule }             from 'primeng/table';
+import { TabViewModule }           from 'primeng/tabview';
+import { TagModule }               from 'primeng/tag';
+import { DropdownModule }          from 'primeng/dropdown';
+
+// Your existing features/components
+import { HeaderNavComponent }      from './features/header-nav/header-nav.component';
+import { TableComponent }          from './table/table.component';
+import { SwimmersOverviewComponent } from './swimmers-overview/swimmers-overview.component';
+import { EventCardComponent }      from './event-card/event-card.component';
+import { AthleteCardComponent }    from './athlete-card/athlete-card.component';
+import { LandingPageComponent }    from './component/landing-page/landing-page.component';
+import { FilterComponent }         from './component/filter/filter.component';
+import { CompetitionsComponent }   from './views/competitions/competitions.component';
+import { CompetitionCardComponent } from './component/competition-card/competition-card.component';
+import { AthleteComponent }        from './features/athlete/athlete.component';
+import { ReserveComponent }        from './features/reserve/reserve.component';
+
+// FullCalendar
+import { FullCalendarModule }      from '@fullcalendar/angular';
+
+// Angular Material
+import { MatCardModule }           from '@angular/material/card';
+import { MatButtonModule }         from '@angular/material/button';
+import { MatDialogModule }         from '@angular/material/dialog';
+import { MatTableModule }          from '@angular/material/table';
+import { MatIconModule }           from '@angular/material/icon';
+import { MatTooltipModule }        from '@angular/material/tooltip';
+
+// Your new Athlete Profile view
+import { AthleteProfileComponent } from './views/athlete-profile/athlete-profile.component';
+import { EventModalComponent }     from './views/athlete-profile/event-modal/event-modal.component';
+
+import { MatMenuModule }     from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -41,26 +62,41 @@ import { HttpClientModule } from '@angular/common/http';
     CompetitionsComponent,
     CompetitionCardComponent,
     AthleteComponent,
+    AthleteProfileComponent,
+    EventModalComponent
   ],
   imports: [
     BrowserModule,
-    CardModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+
+    // PrimeNG
     ButtonModule,
+    CardModule,
     MenubarModule,
     ImageModule,
     TableModule,
     TabViewModule,
     TagModule,
-    ReserveComponent,
-    FormsModule,
     DropdownModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    HttpClientModule
-  ],
 
+    // FullCalendar (no registerPlugins here!)
+    FullCalendarModule,
+    ReserveComponent,
+    // Angular Material
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatTableModule,     
+    MatIconModule,
+    MatTooltipModule,
+    MatMenuModule
+
+  ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
