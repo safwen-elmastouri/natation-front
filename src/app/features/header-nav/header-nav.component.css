@@ -5,7 +5,6 @@
   font-weight: 600;
   color: #1a1a1a;
   text-align: center;
-  line-height: 1.5;
   color: rgb(255 255 255 / 0.9);
 }
 .card{
@@ -13,10 +12,50 @@
   width: 100% !important;
   background-image: linear-gradient(
     to left,
-    rgb(23 37 84 / 0.8),
-    rgb(23 37 84 / 0)
+    rgba(146, 149, 157, 0.8),
+    rgba(56, 71, 120, 0)
   );
 }
 ::ng-deep a.p-menuitem-link {
   text-decoration: none !important;
+}
+ :host ::ng-deep .p-menubar {
+  margin-top: 0 !important;
+} 
+::ng-deep ul{
+  margin-bottom: 0 !important;
+}
+::ng-deep .p-menubar .p-button {
+  color: #4b5563 !important;
+  gap: 0.5rem;
+  text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+  .auth-buttons {
+    display: none;
+  }
+}
+
+::ng-deep .img{
+  padding-left: 40px !important;
+}
+
+/* Cache les liens pour mobile ou desktop selon le contexte */
+.desktop-only {
+  display: flex;
+  margin-left: auto !important;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
 }

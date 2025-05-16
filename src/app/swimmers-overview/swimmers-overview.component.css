@@ -1,41 +1,244 @@
-::ng-deep .p-tabview-nav li .p-tabview-nav-link {
-  border-bottom: 3px solid #e5e7eb;
-  transition: border-bottom 0.3s ease;
-  color: #4b5563;
+
+.title {
+  font-size: 3.75rem;
+  font-weight: 300;
+  color: #1a202c; /* Gray-900 */
+  line-height: 1.25;
+  
 }
 
-::ng-deep .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-bottom: 3px solid #3b82f6;
-  font-weight: bold;
-  color: #3b82f6;
+.subtitle {
+  font-weight: 200;
 }
 
-.championship-header {
-  background-color: #2563eb;
-  color: white;
-  padding: 1rem 1.5rem;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+.description {
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: #4a5568; /* Gray-700 */
+  line-height: 1.5;
+
+}
+
+.get-started-btn {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #6b7280;
+  font-size: 1.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: 200px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.card .icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+/* Colors per card */
+.card.yellow .icon { background: #fde68a; color: #b45309; }
+.card.cyan .icon { background: #a5f3fc; color: #0891b2; }
+.card.indigo .icon { background: #c7d2fe; color: #4338ca; }
+.card.slate .icon { background: #e2e8f0; color: #334155; }
+.card.orange .icon { background: #fdba74; color: #c2410c; }
+.card.pink .icon { background: #fbcfe8; color: #be185d; }
+.card.teal .icon { background: #99f6e4; color: #0f766e; }
+.card.blue .icon { background: #bfdbfe; color: #2563eb; }
+.card.purple .icon { background: #e9d5ff; color: #7c3aed; }
+
+.card h5 {
+  font-size: 1.125rem;
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+}
+
+.card span {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 1024px) {
+  .container {
+    margin: 3rem 5rem;
+  }
+}
+
+.section-title .title {
+  color: var(--surface-900);
+  font-size: 2.5rem;
+  font-weight: 200;
+  margin-bottom: 0.5rem;
+}
+
+.section-title .subtitle {
+  color: var(--text-muted-color);
+  font-size: 1.5rem;
+}
+
+.grid-section {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
   align-items: center;
 }
 
-.championship-header h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0;
+.grid-section.reverse {
+  margin-top: 3rem;
+  flex-direction: row-reverse;
 }
 
-.date-badge {
-  background-color: white;
-  color: #2563eb;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-::ng-deep .p-tabview-panels {
+.image-box {
+  grid-column: span 12;
+  display: flex;
+  justify-content: center;
   padding: 0;
+  border-radius: 8px;
+}
+
+@media (min-width: 1024px) {
+  .image-box {
+    grid-column: span 6;
+  }
+}
+
+.text-box {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+.text-box.text-right {
+  align-items: flex-center;
+  text-align: left;
+}
+
+.text-box.text-left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .text-box {
+    grid-column: span 6;
+  }
+}
+
+.icon-box {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.heading {
+  font-size: 1.875rem;
+  color: var(--surface-900);
+  font-weight: 500;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--surface-700);
+  max-width: 650px;
+}
+
+/* Background color utility */
+.bg-purple {
+  background-color: #eef7ff;;
+}
+.bg-purple-light {
+  background-color: #e9d5ff;
+}
+.bg-yellow {
+  background-color: #fef9c3;
+}
+.bg-yellow-light {
+  background-color: #fef08a;
+}
+img, video {
+  max-width: 100%;
+  height: auto;
 }

@@ -1,0 +1,138 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+.reservation-container {
+  margin: 40px auto;
+  padding: 24px;
+  background: linear-gradient(to right, #f0f4f8, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 32px;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
+  font-size: 18px;
+  margin-top: 40px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: #34495e;
+  flex-wrap: wrap;
+}
+
+.equipe {
+  font-size: 18px;
+  color: #1abc9c;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  background-color: #f39c12;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.card-body .info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #2f3640;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #3498db;
+  min-width: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .reservation-container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .card-body .info {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-body .info {
+    font-size: 14px;
+  }
+
+  .badge {
+    font-size: 13px;
+  }
+}
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-btn i {
+    margin-right: 6px;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
