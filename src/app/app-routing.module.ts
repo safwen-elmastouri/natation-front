@@ -5,12 +5,15 @@ import { HomeComponent } from './features/home/home.component';
 import { ReserveComponent } from './features/reserve/reserve.component';
 import { CompetitionsComponent } from './views/competitions/competitions.component';
 import { LandingPageComponent } from './component/landing-page/landing-page.component';
+import { ReservationListComponent } from './features/reservation-list/reservation-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'athlete', component: AthleteComponent },
   { path: 'competitions', component: CompetitionsComponent },
   { path: 'reserve', component: ReserveComponent },
+  { path: 'reservation-list', component: ReservationListComponent },
+  
   { path: 'home', component: LandingPageComponent },
 ]
 

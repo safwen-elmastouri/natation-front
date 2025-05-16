@@ -1,0 +1,35 @@
+<div class="reservation-container">
+  <h2 class="title">📋 Liste des Réservations</h2>
+
+  <div *ngIf="reservationService.reservations.length === 0" class="empty">
+    😕 Aucune réservation pour le moment.
+  </div>
+
+  <div class="card" *ngFor="let r of reservationService.reservations; let i = index">
+    <div class="card-header">
+      <div class="equipe">
+        <i class="fas fa-users icon"></i> Coach {{ r.equipe }}
+      </div>
+      <span class="badge">{{ r.date }}</span>
+    </div>
+
+    <div class="card-body">
+      <div class="info">
+        <i class="fas fa-clock icon"></i>
+        <strong>Heure :</strong> {{ r.startTime }} - {{ r.endTime }}
+      </div>
+      <div class="info">
+        <i class="fas fa-swimmer icon"></i>
+        <strong>Piscine :</strong> {{ r.piscine }}
+      </div>
+      <div class="info">
+        <i class="fas fa-water icon"></i>
+        <strong>Couloir :</strong> {{ r.couloir }}
+      </div>
+    </div>
+
+    <button class="delete-btn" (click)="deleteReservation(i)">
+      <i class="fas fa-trash-alt"></i> Supprimer
+    </button>
+  </div>
+</div>

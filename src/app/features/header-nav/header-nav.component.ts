@@ -1,8 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-header-nav',
+  standalone: true,
+  imports: [CommonModule, FormsModule,MenubarModule],
   templateUrl: './header-nav.component.html',
   styleUrls: ['./header-nav.component.css'],
 })
@@ -56,17 +61,27 @@ export class HeaderNavComponent implements OnInit {
         ],
       },
       {
-        label: 'News',
+        label: 'Réservation',
         icon: 'pi pi-envelope',
+        routerLink: ['/reserve'],
       },
+      // {
+      //   label: 'Classement',
+      //   icon: 'pi pi-envelope',
+      // },
       {
-        label: 'Classement',
+        label: 'List réservation',
         icon: 'pi pi-envelope',
+        routerLink: ['/reservation-list'],
       },
-      {
-        label: 'Contact',
-        icon: 'pi pi-envelope',
-      },
+      // {
+      //   label: 'Login', icon: 'pi pi-sign-in', routerLink: '/login',
+      //   styleClass: 'mobile-only'
+      // },
+      // {
+      //   label: 'Signup', icon: 'pi pi-user-plus', routerLink: '/signup',
+      //   styleClass: 'mobile-only'
+      // }
     ];
   }
 }
