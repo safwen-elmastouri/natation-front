@@ -1,7 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
+import { CompetitionCardComponent } from 'src/app/component/competition-card/competition-card.component';
+import { FilterComponent } from 'src/app/component/filter/filter.component';
 
 @Component({
   selector: 'app-competitions',
+  standalone: true,
+  imports: [CardModule,FormsModule,CommonModule,CompetitionCardComponent,FilterComponent],
   templateUrl: './competitions.component.html',
   styleUrls: ['./competitions.component.css'],
 })
