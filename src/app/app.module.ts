@@ -89,8 +89,7 @@ import { MatExpansionModule }    from '@angular/material/expansion';
     MatIconModule,
     MatTooltipModule,
     MatMenuModule,
-    MatExpansionModule
-
+    MatExpansionModule     
   ],
   providers: [],
   bootstrap: [AppComponent]

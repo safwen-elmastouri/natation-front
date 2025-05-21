@@ -1,7 +1,7 @@
+<!-- src/app/components/athlete-profile/event-modal/event-modal.component.html -->
 <h2 mat-dialog-title>{{ data.event.eventTitle }}</h2>
 <mat-dialog-content>
-  <p>
-    <strong>Compétition :</strong>
+  <p><strong>Compétition :</strong>
     {{ data.event.competition.title }}
     ({{ data.event.competition.dateStart }} – {{ data.event.competition.dateEnd }})
   </p>
@@ -12,6 +12,9 @@
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="respond('decline')">Refuser</button>
-  <button mat-raised-button color="primary" (click)="respond('accept')">Accepter</button>
+  <button mat-button (click)="respond('cancel')" [disabled]="loading">En attente</button>
+  <button mat-button (click)="respond('decline')" [disabled]="loading">Refuser</button>
+  <button mat-raised-button color="primary" (click)="respond('accept')" [disabled]="loading">
+    Accepter
+  </button>
 </mat-dialog-actions>
