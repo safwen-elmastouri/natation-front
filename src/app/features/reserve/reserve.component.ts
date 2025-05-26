@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { ReservationService } from 'src/app/shared/models/services/reservation.service';
 
 @Component({
@@ -47,16 +47,33 @@ export class ReserveComponent {
     };
   }
 
-  onSubmit() {
-    const newReservation = { ...this.reservation };
-    this.reservationService.addReservation(newReservation);
-    this.confirmationReservation = newReservation;
-    this.submitted = true;
-    this.reservation = this.getEmptyReservation();
-  }
+  // onSubmit() {
+  //   const newReservation = { ...this.reservation };
+  //   this.reservationService.addReservation(newReservation);
+  //   this.confirmationReservation = newReservation;
+  //   this.submitted = true;
+  //   this.reservation = this.getEmptyReservation();
+  // }
 
   closeModal() {
     this.submitted = false;
     this.confirmationReservation = null;
   }
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      const newReservation = { ...this.reservation };
+      this.reservationService.addReservation(newReservation);
+      this.confirmationReservation = newReservation;
+      this.submitted = true;
+      this.reservation = this.getEmptyReservation();
+      console.log(this.reservation);
+  
+      // ✅ Réinitialiser le formulaire (efface valeurs + erreurs)
+      form.resetForm();
+  
+      // Optionnel : vider manuellement reservation si nécessaire
+    }
+  }
+  
 }

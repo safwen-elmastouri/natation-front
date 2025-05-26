@@ -150,9 +150,7 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
+
 
 select {
   background-color: #ffffff;
@@ -162,3 +160,14 @@ select option[disabled] {
   color: #bbb;
 }
 
+.btn-disabled{
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.btn-active {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
