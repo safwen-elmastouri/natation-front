@@ -1,0 +1,141 @@
+<div class="d-flex flex-wrap vh-100">
+  <!-- Partie gauche : Bienvenue -->
+  <div class="col-md-6 left-panel d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-3">Bienvenue</h1>
+    <p class="text-center">Créez votre compte pour accéder à toutes nos fonctionnalités et services exclusifs.</p>
+    <ul class="list-unstyled mt-4">
+      <li><i class="bi bi-shield-lock-fill me-2"></i> Sécurité renforcée</li>
+      <li><i class="bi bi-lightning-fill me-2"></i> Interface rapide et intuitive</li>
+      <li><i class="bi bi-cloud-arrow-up-fill me-2"></i> Synchronisation multiplateforme</li>
+    </ul>
+  </div>
+
+  <!-- Partie droite : Formulaire d'inscription -->
+  <div class="col-md-6 d-flex align-items-center justify-content-center">
+    <div class="form-container">
+      <h2 class="text-center mb-4">Inscription</h2>
+<form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+
+
+ <!-- Username -->
+<div class="mb-3">
+  <label for="username" class="form-label">Nom d'utilisateur</label>
+  <input
+    type="text"
+    class="form-control"
+    id="username"
+    name="username"
+    [(ngModel)]="model.username"
+    #username="ngModel"
+    required
+  />
+  <div *ngIf="username.invalid && username.touched" class="text-danger">
+    Le nom d'utilisateur est requis.
+  </div>
+</div>
+
+
+
+
+<!-- Email -->
+<div class="mb-3">
+  <label for="email" class="form-label">Adresse email</label>
+  <input
+    type="email"
+    class="form-control"
+    id="email"
+    name="email"
+    [(ngModel)]="model.email"
+    #email="ngModel"
+    required
+    email
+  />
+  <div *ngIf="email.invalid && email.touched" class="text-danger">
+    <div *ngIf="email.errors?.['required']">L'adresse email est requise.</div>
+    <div *ngIf="email.errors?.['email']">Veuillez entrer une adresse email valide.</div>
+  </div>
+</div>
+
+<!-- Mot de passe -->
+<div class="mb-3">
+  <label for="password" class="form-label">Mot de passe</label>
+  <input
+    type="password"
+    class="form-control"
+    id="password"
+    name="password"
+    [(ngModel)]="model.password"
+    #password="ngModel"
+    required
+    minlength="6"
+  />
+  <div *ngIf="password.invalid && password.touched" class="text-danger">
+    Le mot de passe doit contenir au moins 6 caractères.
+  </div>
+</div>
+
+<!-- Confirmer mot de passe -->
+<div class="mb-3">
+  <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+  <input
+    type="password"
+    class="form-control"
+    id="confirmPassword"
+    name="confirmPassword"
+    [(ngModel)]="model.confirmPassword"
+    #confirmPassword="ngModel"
+    required
+  />
+  <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="text-danger">
+    Veuillez confirmer le mot de passe.
+  </div>
+  <div *ngIf="model.password !== model.confirmPassword && confirmPassword.touched" class="text-danger">
+    Les mots de passe ne correspondent pas.
+  </div>
+</div>
+
+<!-- Is Admin Case -->
+
+<!-- Case à cocher pour admin -->
+<div class="form-check mb-3">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    id="isAdmin"
+    name="isAdmin"
+    [(ngModel)]="model.isAdmin"
+  />
+  <label class="form-check-label" for="isAdmin">
+    Créer en tant qu'admin
+  </label>
+</div>
+
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!registerForm.form.valid">S'inscrire</button>
+<!-- Message d'erreur -->
+<div *ngIf="apiErrorMessage" class="alert alert-danger">
+  {{ apiErrorMessage }}
+</div>
+
+<!-- Message de succès -->
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+        <div class="text-center mt-3">
+          <span>Vous avez déjà un compte ?</span> <a href="/login">Se connecter</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<style>
+  .left-panel {
+    background: linear-gradient(to bottom right, rgba(0,180,219,0.8), rgba(0,131,176,0.8)),
+                url('/assets/images/Swimmer.jpg') center center / cover no-repeat;
+    color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+</style>
