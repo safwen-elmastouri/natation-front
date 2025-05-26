@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AdminService, User, UserRoleAssignmentRequest } from '../../shared/admin.service';
 import { ChartModule } from 'primeng/chart';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { CommonModule } from '@angular/common';
 export type UserType = 'SUPER_ADMIN' | 'ADMIN' | 'COACH' | 'ATHLETE';
 
 @Component({

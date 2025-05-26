@@ -44,6 +44,8 @@ import { HeaderNavComponent } from './features/header-nav/header-nav.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { PanelAdminComponent } from './features/panel-admin/panel-admin.component';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,9 @@ import { PanelAdminComponent } from './features/panel-admin/panel-admin.componen
     AthleteCardComponent,
     AthleteProfileComponent,
     EventModalComponent,
+      RegisterComponent,
+    LoginComponent,
+    PanelAdminComponent,
 
   ],
   imports: [
@@ -92,9 +97,8 @@ import { PanelAdminComponent } from './features/panel-admin/panel-admin.componen
 
     // FullCalendar
     FullCalendarModule,
-     RegisterComponent,
-    LoginComponent,
-    PanelAdminComponent,
+    DialogModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'reservation-list', component: ReservationListComponent },
   
   { path: 'home', component: LandingPageComponent },
-  { path: 'home', component: LandingPageComponent }
+  { path: 'home', component: LandingPageComponent },
     { path: 'register', component: RegisterComponent },
         { path: 'login', component: LoginComponent },
                 { path: 'admin', component: PanelAdminComponent },
