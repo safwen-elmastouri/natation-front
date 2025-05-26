@@ -41,6 +41,9 @@ import { CompetitionsComponent } from './views/competitions/competitions.compone
 import { ReserveComponent } from './features/reserve/reserve.component';
 import { FooterComponent } from './features/footer/footer.component';
 import { HeaderNavComponent } from './features/header-nav/header-nav.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { PanelAdminComponent } from './features/panel-admin/panel-admin.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +92,9 @@ import { HeaderNavComponent } from './features/header-nav/header-nav.component';
 
     // FullCalendar
     FullCalendarModule,
+     RegisterComponent,
+    LoginComponent,
+    PanelAdminComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,316 @@
+<div class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <nav class="sidebar text-white px-4 py-4" style="width: 250px; background: linear-gradient(180deg, #0062cc, #004b8d);">
+    <h4 class="fw-bold mb-4">🏊 Natation Admin</h4>
+    <ul class="nav flex-column gap-3">
+<li><a class="nav-link text-white fw-semibold" (click)="view = 'equipes'">📋 Équipes</a></li>
+<li><a class="nav-link text-white fw-semibold" (click)="view = 'piscines'">🏊 Piscines</a></li>
+<li><a class="nav-link text-white fw-semibold" (click)="view = 'acces'">👤 Accès</a></li>
+    </ul>
+  </nav>
+ <div *ngIf="view === 'equipes'">
+  <!-- Main -->
+  <div class="flex-grow-1 d-flex flex-column bg-light">
+
+    <!-- Topbar -->
+    <header class="bg-white shadow-sm p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
+      <h5 class="mb-0 text-primary">Dashboard Admin</h5>
+      <span class="text-muted">Bonjour, Admin 👋</span>
+    </header>
+
+    <!-- Content -->
+    <main class="p-4 flex-grow-1">
+
+      <!-- Section title -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-primary">Équipes de natation</h3>
+        <div>
+          <!-- Bouton Ajouter -->
+          <div class="text-center my-4">
+            <button pButton label="Ajouter une Équipe" icon="pi pi-plus" class="p-button-rounded p-button-success" (click)="displayAddForm = true"></button>
+          </div>
+<p-dialog 
+  header="Nouvelle Équipe" 
+  [(visible)]="displayAddForm" 
+  [modal]="true" 
+  [style]="{ width: '400px' }" 
+  [closable]="true" 
+  [dismissableMask]="true"
+  styleClass="rounded-lg">
+  
+  <form (ngSubmit)="ajouterEquipe(formAjout)" #formAjout="ngForm" class="p-fluid space-y-4">
+    <div class="field">
+      <label for="nom" class="font-semibold mb-1 block">Nom de l'équipe</label>
+      <input 
+        id="nom" 
+        name="nom" 
+        type="text" 
+        pInputText 
+        class="w-full" 
+        required 
+        placeholder="Ex : Les Aigles" 
+        [(ngModel)]="newEquipe.nom" />
+    </div>
+
+    <div class="field">
+      <label for="coach" class="font-semibold mb-1 block">Coach</label>
+      <input 
+        id="coach" 
+        name="coach" 
+        type="text" 
+        pInputText 
+        class="w-full" 
+        required 
+        placeholder="Nom du coach" 
+        [(ngModel)]="newEquipe.coach" />
+    </div>
+
+    <div class="field">
+      <label for="image" class="font-semibold mb-1 block">Image</label>
+      <input 
+        id="image" 
+        name="image" 
+        type="file" 
+        (change)="onImageUpload($event)" 
+        pInputText 
+        class="w-full" />
+    </div>
+
+    <!-- Aperçu de l’image téléchargée -->
+    <div *ngIf="newEquipe.image" class="text-center">
+      <img [src]="newEquipe.image" alt="Aperçu" class="max-h-40 rounded shadow my-2" />
+    </div>
+
+    <div class="text-right">
+      <button 
+        type="submit" 
+        pButton 
+        label="Ajouter" 
+        icon="pi pi-check" 
+        class="p-button-success w-full py-2" 
+        [disabled]="!formAjout.valid">
+      </button>
+    </div>
+  </form>
+</p-dialog>
+
+
+
+
+
+          <button class="btn btn-outline-secondary"><i class="bi bi-download"></i> Exporter</button>
+        </div>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" *ngFor="let equipe of equipes; let i = index"
+>
+          <div class="card shadow-lg border-0 h-100" style="border-radius: 10px;">
+            <img [src]="equipe.image" class="card-img-top" alt="Equipe photo" style="height: 180px; object-fit: cover; border-radius: 10px;">
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ equipe.nom }}</h5>
+              <p class="card-text mb-2"><strong>Coach :</strong> {{ equipe.coach }}</p>
+            </div>
+            <div class="card-footer bg-white border-0 pt-4 d-flex justify-content-center">
+              <div class="d-flex flex-wrap justify-content-center gap-3">
+                <button  class="p-button p-button-rounded p-button-sm custom-btn-view" pButton icon="pi pi-eye" label="Voir" (click)="voirEquipe(equipe)"></button>
+                <button class="p-button p-button-rounded p-button-sm custom-btn-edit" pButton icon="pi pi-pencil" label="Modifier" (click)="modifierEquipe(i)"></button>
+                <button class="p-button p-button-rounded p-button-sm custom-btn-delete" pButton icon="pi pi-trash" label="Supprimer" (click)="supprimerEquipe(i)"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-dialog 
+  header="Détails de l'Équipe" 
+  [(visible)]="displayViewDialog" 
+  [modal]="true" 
+  [style]="{ width: '400px' }" 
+  [closable]="true" 
+  [dismissableMask]="true"
+  styleClass="rounded-lg">
+  
+  <div *ngIf="selectedEquipe" class="p-fluid">
+    <img 
+      [src]="selectedEquipe.image" 
+      alt="Image équipe" 
+      class="w-full rounded shadow mb-3" 
+      style="max-height: 200px; object-fit: cover;" />
+    <h4 class="text-primary">{{ selectedEquipe.nom }}</h4>
+    <p><strong>Coach:</strong> {{ selectedEquipe.coach }}</p>
+    <p><strong>Dernière mise à jour:</strong> {{ selectedEquipe.updatedAt | date: 'medium' }}</p>
+  </div>
+</p-dialog>
+
+
+
+    </main>
+  </div> 
+</div>
+<div *ngIf="view === 'piscines'">
+  <div class="flex-grow-1 d-flex flex-column bg-light">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
+      <h5 class="mb-0 text-primary fw-bold">Dashboard Admin</h5>
+      <span class="text-muted">Bonjour, Admin 👋</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-4 flex-grow-1">
+
+      <!-- Title and Add Button -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-primary">🏊 Liste des Piscines</h3>
+        <button
+          pButton
+          label="Ajouter une Piscine"
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-info"
+          (click)="displayAddPiscine = true"
+        ></button>
+      </div>
+
+      <!-- Dialog pour ajout -->
+      <p-dialog
+        header="Nouvelle Piscine"
+        [(visible)]="displayAddPiscine"
+        [modal]="true"
+        [style]="{ width: '400px' }"
+        [closable]="true"
+        [dismissableMask]="true"
+        styleClass="rounded-lg"
+      >
+        <form (ngSubmit)="ajouterPiscine(formPiscine)" #formPiscine="ngForm" class="p-fluid">
+          <div class="field mb-3">
+            <label for="nomPiscine">Nom</label>
+            <input id="nomPiscine" name="nomPiscine" type="text" pInputText required [(ngModel)]="newPiscine.nom" />
+          </div>
+          <div class="field mb-3">
+            <label for="ville">Ville</label>
+            <input id="ville" name="ville" type="text" pInputText required [(ngModel)]="newPiscine.ville" />
+          </div>
+          <div class="text-end mt-3">
+            <button type="submit" pButton label="Ajouter" icon="pi pi-check" class="p-button-success" [disabled]="!formPiscine.valid"></button>
+          </div>
+        </form>
+      </p-dialog>
+
+      <!-- Piscines Cards -->
+      <div class="row g-4 mt-2">
+        <div class="col-md-6 col-lg-4" *ngFor="let piscine of piscines; let i = index">
+          <div class="card shadow-sm border-0 h-100 rounded-4">
+            <img [src]="piscine.image" class="card-img-top" alt="Image piscine" style="height: 180px; object-fit: cover;">
+            <div class="card-body pb-1">
+              <h5 class="card-title text-info fw-bold">{{ piscine.nom }}</h5>
+              <p class="mb-1"><strong>Bassins :</strong> {{ piscine.bassins }}</p>
+              <p class="mb-1"><strong>Adresse :</strong> {{ piscine.adresse }}</p>
+              <p class="mb-1"><strong>Téléphone :</strong> {{ piscine.telephone }}</p>
+            </div>
+            <div class="card-footer border-0 bg-white pt-3 d-flex justify-content-center gap-2">
+              <button
+                pButton
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-sm p-button-outlined p-button-info"
+                (click)="modifierPiscine(i)"
+              ></button>
+              <button
+                pButton
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-sm p-button-outlined p-button-danger"
+                (click)="supprimerPiscine(i)"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Section gestion des accès -->
+<div *ngIf="view === 'acces'" class="acces-section" style="padding: 2rem; background-color: #f5f9ff; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+  <h2 style="font-size: 24px; margin-bottom: 1rem; color: #0b3d91;">Gestion des accès</h2>
+
+  <div *ngIf="message" class="message-success" style="background-color: #d1f7d6; color: #155724; padding: 0.5rem 1rem; border-radius: 8px; margin-bottom: 1rem;">
+    {{ message }}
+  </div>
+
+  <!-- Liste des utilisateurs -->
+  <table class="user-table" style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+    <thead style="background-color: #e0f0ff; color: #0b3d91;">
+      <tr>
+        <th style="padding: 1rem; text-align: left;">ID</th>
+        <th style="padding: 1rem; text-align: left;">Email</th>
+        <th style="padding: 1rem; text-align: left;">Rôle actuel</th>
+        <th style="padding: 1rem; text-align: left;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" style="border-top: 1px solid #eee;">
+        <td style="padding: 0.75rem;">{{ user.id }}</td>
+        <td style="padding: 0.75rem;">{{ user.email }}</td>
+        <td style="padding: 0.75rem;">
+          <span style="background-color: #e0f0ff; color: #0b3d91; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.875rem;">
+            {{ user.type }}
+          </span>
+        </td>
+        <td style="padding: 0.75rem;">
+          <button class="btn-delete" (click)="deleteUser(user.id)" style="background-color: #ff6b6b; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulaire assigner rôle -->
+  <h3 style="margin-top: 2rem; font-size: 20px; color: #0b3d91;">Attribuer un rôle à un utilisateur</h3>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1rem;">
+    <div style="flex: 1;">
+      <label for="userSelect" style="display: block; margin-bottom: 0.5rem;">Utilisateur :</label>
+      <select id="userSelect" [(ngModel)]="selectedUserId" name="userSelect"
+        style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+        <option [ngValue]="undefined">-- Sélectionner --</option>
+        <option *ngFor="let user of users" [value]="user.id">{{ user.email }}</option>
+      </select>
+    </div>
+
+    <div style="flex: 1;">
+      <label for="roleSelect" style="display: block; margin-bottom: 0.5rem;">Rôle :</label>
+      <select id="roleSelect" [(ngModel)]="selectedRole" name="roleSelect"
+        style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+        <option [ngValue]="undefined">-- Sélectionner --</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+
+    <div style="flex-shrink: 0; align-self: end;">
+      <button class="btn-assign" (click)="assignRole()"
+        style="background-color: #0b3d91; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer;">
+        Attribuer rôle
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+            
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
