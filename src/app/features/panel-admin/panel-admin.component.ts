@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AdminService, User, UserRoleAssignmentRequest } from '../../shared/admin.service';
 import { ChartModule } from 'primeng/chart';
-import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 export type UserType = 'SUPER_ADMIN' | 'ADMIN' | 'COACH' | 'ATHLETE';
 
 @Component({
   selector: 'app-panel-admin',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ChartModule,  DialogModule],
   templateUrl: './panel-admin.component.html',
   styleUrls: ['./panel-admin.component.css']
 })

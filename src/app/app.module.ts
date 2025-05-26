@@ -57,7 +57,6 @@ import { Dialog, DialogModule } from '@angular/cdk/dialog';
     EventModalComponent,
       RegisterComponent,
     LoginComponent,
-    PanelAdminComponent,
 
   ],
   imports: [
@@ -97,7 +96,7 @@ import { Dialog, DialogModule } from '@angular/cdk/dialog';
 
     // FullCalendar
     FullCalendarModule,
-    DialogModule,
+    PanelAdminComponent,
    
   ],
   providers: [],
