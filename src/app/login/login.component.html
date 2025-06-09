@@ -34,7 +34,7 @@
           </button>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.form.valid">Se connecter</button>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.form.valid" routerLink="/home">Se connecter</button>
 
         <div *ngIf="apiErrorMessage" class="alert alert-danger mt-2">
           {{ apiErrorMessage }}

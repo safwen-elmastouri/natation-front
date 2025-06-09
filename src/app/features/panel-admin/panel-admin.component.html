@@ -148,91 +148,233 @@
     </main>
   </div> 
 </div>
-<div *ngIf="view === 'piscines'">
-  <div class="flex-grow-1 d-flex flex-column bg-light">
-    
-    <!-- Header -->
-    <header class="bg-white shadow-sm p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
-      <h5 class="mb-0 text-primary fw-bold">Dashboard Admin</h5>
-      <span class="text-muted">Bonjour, Admin 👋</span>
-    </header>
+<!-- Section gestion des piscines -->
+<div *ngIf="view === 'piscines'" class="flex-grow-1 d-flex flex-column bg-light">
 
-    <!-- Main Content -->
-    <main class="p-4 flex-grow-1">
+  <!-- Topbar -->
+  <header class="bg-white shadow-sm p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
+    <h5 class="mb-0 text-primary fw-bold">Dashboard Admin</h5>
+    <span class="text-muted">Bonjour, Admin 👋</span>
+  </header>
 
-      <!-- Title and Add Button -->
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold text-primary">🏊 Liste des Piscines</h3>
+  <!-- Contenu principal -->
+  <main class="p-4 flex-grow-1">
+
+    <!-- Titre + bouton -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold text-primary">🏊 Liste des Piscines</h3>
+      <button
+        pButton
+        class="p-button-success"
+        (click)="
+          displayAddPiscine = true; 
+          editModePiscine = false; 
+          newPiscine = { nom: '', adresse: '', couloirs: [] };
+        ">
+        Ajouter
+      </button>
+    </div>
+
+    <!-- Dialog ajout/modification (sans couloirs) -->
+    <p-dialog
+      [(visible)]="displayAddPiscine"
+      [modal]="true"
+      [style]="{ width: '500px' }"
+      [closable]="true"
+      [dismissableMask]="true"
+      [header]="editModePiscine ? 'Modifier Piscine' : 'Nouvelle Piscine'"
+      styleClass="rounded-lg">
+
+      <form
+        #formPiscine="ngForm"
+        (ngSubmit)="editModePiscine ? validerModificationPiscine(formPiscine) : ajouterPiscine(formPiscine)"
+        class="p-fluid">
+
+        <div class="field mb-3">
+          <label for="nomPiscine">Nom</label>
+          <input
+            id="nomPiscine"
+            name="nomPiscine"
+            type="text"
+            pInputText
+            [(ngModel)]="newPiscine.nom"
+            required
+            #nomPiscine="ngModel">
+          <small *ngIf="nomPiscine.invalid && nomPiscine.touched" class="p-error">Le nom est obligatoire.</small>
+        </div>
+
+        <div class="field mb-3">
+          <label for="adressePiscine">Adresse</label>
+          <input
+            id="adressePiscine"
+            name="adressePiscine"
+            type="text"
+            pInputText
+            [(ngModel)]="newPiscine.adresse"
+            required
+            #adressePiscine="ngModel">
+          <small *ngIf="adressePiscine.invalid && adressePiscine.touched" class="p-error">L'adresse est obligatoire.</small>
+        </div>
+
+        <div class="text-end mt-3">
+          <button
+            pButton
+            type="submit"
+            class="p-button-success"
+            icon="pi pi-check"
+            [disabled]="formPiscine.invalid">
+            {{ editModePiscine ? 'Modifier' : 'Ajouter' }}
+          </button>
+        </div>
+
+      </form>
+    </p-dialog>
+
+    <!-- Dialog gestion des couloirs -->
+   <!-- Dialog gestion des couloirs -->
+<p-dialog
+  [(visible)]="displayCouloirDialog"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [closable]="true"
+  [dismissableMask]="true"
+  [header]="'Gérer les couloirs de ' + selectedPiscine?.nom"
+  styleClass="rounded-lg">
+
+  <div *ngIf="selectedPiscine">
+
+    <!-- Liste des couloirs existants -->
+    <div *ngIf="newCouloirs.length > 0" class="mb-4">
+      <h6 class="text-muted">Couloirs existants :</h6>
+      <ul class="list-group">
+        <li
+          *ngFor="let couloir of newCouloirs; let i = index"
+          class="list-group-item d-flex justify-content-between align-items-center">
+
+          <div>
+            <strong>Couloir {{ couloir.numero }}</strong> - {{ couloir.nom || 'Sans nom' }} ({{ couloir.longueur }} m)
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            (click)="supprimerCouloir(i)">
+            🗑️ Supprimer
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Formulaire ajout d’un nouveau couloir -->
+    <form
+      #formCouloir="ngForm"
+      (ngSubmit)="ajouterCouloir()"
+      class="p-fluid">
+
+      <div class="field mb-3">
+        <label for="nomCouloir">Nom du couloir</label>
+        <input
+          id="nomCouloir"
+          name="nomCouloir"
+          type="text"
+          pInputText
+          [(ngModel)]="newCouloir.nom"
+          required>
+      </div>
+
+      <div class="field mb-3">
+        <label for="longueurCouloir">Longueur (m)</label>
+        <input
+          id="longueurCouloir"
+          name="longueurCouloir"
+          type="number"
+          pInputText
+          [(ngModel)]="newCouloir.longueur"
+          required>
+      </div>
+
+      <div class="text-end mt-2">
         <button
           pButton
-          label="Ajouter une Piscine"
+          type="submit"
+          class="p-button-info"
           icon="pi pi-plus"
-          class="p-button-rounded p-button-info"
-          (click)="displayAddPiscine = true"
-        ></button>
+          [disabled]="formCouloir.invalid">
+          Ajouter Couloir
+        </button>
       </div>
+    </form>
 
-      <!-- Dialog pour ajout -->
-      <p-dialog
-        header="Nouvelle Piscine"
-        [(visible)]="displayAddPiscine"
-        [modal]="true"
-        [style]="{ width: '400px' }"
-        [closable]="true"
-        [dismissableMask]="true"
-        styleClass="rounded-lg"
-      >
-        <form (ngSubmit)="ajouterPiscine(formPiscine)" #formPiscine="ngForm" class="p-fluid">
-          <div class="field mb-3">
-            <label for="nomPiscine">Nom</label>
-            <input id="nomPiscine" name="nomPiscine" type="text" pInputText required [(ngModel)]="newPiscine.nom" />
-          </div>
-          <div class="field mb-3">
-            <label for="ville">Ville</label>
-            <input id="ville" name="ville" type="text" pInputText required [(ngModel)]="newPiscine.ville" />
-          </div>
-          <div class="text-end mt-3">
-            <button type="submit" pButton label="Ajouter" icon="pi pi-check" class="p-button-success" [disabled]="!formPiscine.valid"></button>
-          </div>
-        </form>
-      </p-dialog>
+    <!-- Bouton de fermeture -->
+    <div class="text-end mt-4">
+      <button
+        pButton
+        type="button"
+        class="p-button-secondary"
+        (click)="displayCouloirDialog = false">
+        Fermer
+      </button>
+    </div>
 
-      <!-- Piscines Cards -->
-      <div class="row g-4 mt-2">
-        <div class="col-md-6 col-lg-4" *ngFor="let piscine of piscines; let i = index">
-          <div class="card shadow-sm border-0 h-100 rounded-4">
-            <img [src]="piscine.image" class="card-img-top" alt="Image piscine" style="height: 180px; object-fit: cover;">
-            <div class="card-body pb-1">
-              <h5 class="card-title text-info fw-bold">{{ piscine.nom }}</h5>
-              <p class="mb-1"><strong>Bassins :</strong> {{ piscine.bassins }}</p>
-              <p class="mb-1"><strong>Adresse :</strong> {{ piscine.adresse }}</p>
-              <p class="mb-1"><strong>Téléphone :</strong> {{ piscine.telephone }}</p>
-            </div>
-            <div class="card-footer border-0 bg-white pt-3 d-flex justify-content-center gap-2">
-              <button
-                pButton
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-sm p-button-outlined p-button-info"
-                (click)="modifierPiscine(i)"
-              ></button>
-              <button
-                pButton
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-sm p-button-outlined p-button-danger"
-                (click)="supprimerPiscine(i)"
-              ></button>
-            </div>
+  </div>
+</p-dialog>
+
+
+    <!-- Grille de cartes -->
+    <div class="row g-4 mt-2">
+      <div
+        class="col-md-6 col-lg-4"
+        *ngFor="let piscine of piscines; let i = index">
+
+        <div class="card shadow-sm border-0 h-100 rounded-4">
+          <div class="card-body pb-1">
+            <h5 class="card-title text-info fw-bold">{{ piscine.nom }}</h5>
+            <p class="mb-1"><strong>Adresse :</strong> {{ piscine.adresse }}</p>
+            <p class="mb-1"><strong>Nombre de couloirs :</strong> {{ piscine.couloirs?.length || 0 }}</p>
+            <ul class="mb-1 ps-3">
+              <li *ngFor="let couloir of piscine.couloirs">
+                Couloir {{ couloir.nom }} - {{ couloir.longueur }} m
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer border-0 bg-white pt-3 d-flex justify-content-center gap-2 flex-wrap">
+            <button
+              type="button"
+              class="btn btn-outline-info btn-sm"
+              (click)="modifierPiscine(i)">
+              ✏️ Modifier
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              (click)="supprimerPiscine(i)">
+              🗑️ Supprimer
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              (click)="gererCouloirs(piscine)">
+              ➕ Gérer les couloirs
+            </button>
           </div>
         </div>
-      </div>
 
-    </main>
-  </div>
+      </div>
+    </div>
+
+  </main>
 </div>
 
+
+
+
+
+
+
+
 <!-- Section gestion des accès -->
-<div *ngIf="view === 'acces'" class="acces-section" style="padding: 2rem; background-color: #f5f9ff; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-  <h2 style="font-size: 24px; margin-bottom: 1rem; color: #0b3d91;">Gestion des accès</h2>
+<div *ngIf="view === 'acces'" class="acces-section" style="padding: 2rem; background-color: #f5f9ff; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); width:100%">
+  <h2 style="font-size: 24px; margin-bottom: 1rem; color: #0b3d91">Gestion des accès</h2>
 
   <div *ngIf="message" class="message-success" style="background-color: #d1f7d6; color: #155724; padding: 0.5rem 1rem; border-radius: 8px; margin-bottom: 1rem;">
     {{ message }}
