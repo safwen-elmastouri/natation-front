@@ -20,7 +20,13 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
-            "scripts": []
+            "scripts": [],  "allowedCommonJsDependencies": [
+        "canvg",
+        "html2canvas",
+        "core-js",
+        "rgbcolor",
+        "raf"
+      ]
           },
           "configurations": {
             "production": {
@@ -82,6 +88,7 @@
               "node_modules/primeng/resources/primeng.min.css",
                "node_modules/bootstrap/dist/css/bootstrap.min.css",
   "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+  
               "src/styles.css"
             ],
             "scripts": []

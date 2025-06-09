@@ -4,237 +4,281 @@ import { AdminService, User, UserRoleAssignmentRequest } from '../../shared/admi
 import { ChartModule } from 'primeng/chart';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
+import { PiscineService, Piscine, Couloir } from '../../shared/piscine.service';
+
 export type UserType = 'SUPER_ADMIN' | 'ADMIN' | 'COACH' | 'ATHLETE';
 
 @Component({
   selector: 'app-panel-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChartModule,  DialogModule],
+  imports: [CommonModule, FormsModule, ChartModule, DialogModule],
   templateUrl: './panel-admin.component.html',
   styleUrls: ['./panel-admin.component.css']
 })
-
 export class PanelAdminComponent implements OnInit {
 
-  selectedEquipe: any = null; // Pour Voir
-editMode: boolean = false;  // Pour savoir si on modifie
-editIndex: number | null = null; // Pour savoir quelle équipe on modifie
-displayViewDialog: boolean = false; // Pour afficher le modal "Voir"
+  // *** Partie équipes NON MODIFIÉE *** //
+  selectedEquipe: any = null;
+  editMode: boolean = false;
+  editIndex: number | null = null;
+  displayViewDialog: boolean = false;
   view: 'equipes' | 'piscines' | 'acces' = 'equipes';
 
-
-
-
   equipes = [
-  {
-    nom: 'Club Africain',
-    coach: 'M. Sami Achour', // Exemple, à adapter selon les infos réelles
-    updatedAt: new Date(),
-    image: 'assets/images/club_africain.jpg'
-  },
-  {
-    nom: 'Espérance Sportive de Tunis',
-    coach: 'Mme. Amira Ben Aissa', // Exemple
-    updatedAt: new Date(),
-    image: 'assets/images/esperance.jpg'
-  },
-  {
-    nom: 'Étoile Sportive du Sahel',
-    coach: 'Coach Houssem Kchaou', // Exemple
-    updatedAt: new Date(),
-    image: 'assets/images/etoile.jpg'
-  },
-  {
-    nom: 'Olympica Natation Radès',
-    coach: 'M. Moez Majdoub', // Extrait du site officiel
-    updatedAt: new Date(),
-    image: 'assets/images/equpe.jpg'
-  },
-  {
-    nom: 'Club de Natation de Ben Arous',
-    coach: 'Mme. Salma Chiboub', // Exemple
-    updatedAt: new Date(),
-    image: 'assets/images/benarous.jpg'
-  }
-];
-
+    {
+      nom: 'Club Africain',
+      coach: 'M. Sami Achour',
+      updatedAt: new Date(),
+      image: 'assets/images/club_africain.jpg'
+    },
+    {
+      nom: 'Espérance Sportive de Tunis',
+      coach: 'Mme. Amira Ben Aissa',
+      updatedAt: new Date(),
+      image: 'assets/images/esperance.jpg'
+    },
+    {
+      nom: 'Étoile Sportive du Sahel',
+      coach: 'Coach Houssem Kchaou',
+      updatedAt: new Date(),
+      image: 'assets/images/etoile.jpg'
+    },
+    {
+      nom: 'Olympica Natation Radès',
+      coach: 'M. Moez Majdoub',
+      updatedAt: new Date(),
+      image: 'assets/images/equpe.jpg'
+    },
+    {
+      nom: 'Club de Natation de Ben Arous',
+      coach: 'Mme. Salma Chiboub',
+      updatedAt: new Date(),
+      image: 'assets/images/benarous.jpg'
+    }
+  ];
 
   displayAddForm = false;
   newEquipe = { nom: '', coach: '', image: '' };
-
   selectedImage: File | null = null;
 
-
-  // Gérer la sélection du fichier image
   onImageUpload(event: any): void {
-    const file = event.target.files[0]; // Récupérer l'image téléchargée
+    const file = event.target.files[0];
     if (file) {
-      // Créer un objet FileReader pour lire le fichier image
       const reader = new FileReader();
-      
       reader.onload = () => {
-        this.newEquipe.image = reader.result as string; // Stocker l'URL de l'image en Data URL
+        this.newEquipe.image = reader.result as string;
       };
-      
-      reader.readAsDataURL(file); // Lire l'image sous forme de Data URL (base64)
-      this.selectedImage = file; // Stocker l'image pour l'upload ultérieur si nécessaire
+      reader.readAsDataURL(file);
+      this.selectedImage = file;
     }
-  } 
+  }
 
-  // Méthode pour ajouter l'équipe sans API (juste l'affichage de l'image)
   ajouterEquipe(formAjout: NgForm): void {
     if (this.newEquipe.nom && this.newEquipe.coach) {
       this.equipes.push({
         ...this.newEquipe,
         updatedAt: new Date()
       });
-      this.newEquipe = { nom: '', coach: '', image: '' }; // Réinitialiser les valeurs
-      this.selectedImage = null; // Réinitialiser l'image sélectionnée
-      this.displayAddForm = false; // Fermer le formulaire
+      this.newEquipe = { nom: '', coach: '', image: '' };
+      this.selectedImage = null;
+      this.displayAddForm = false;
     }
   }
+
   supprimerEquipe(index: number): void {
-  this.equipes.splice(index, 1);
-}
+    this.equipes.splice(index, 1);
+  }
 
-// Voir une équipe
-voirEquipe(equipe: any): void {
-  this.selectedEquipe = equipe;
-  this.displayViewDialog = true;
-}
+  voirEquipe(equipe: any): void {
+    this.selectedEquipe = equipe;
+    this.displayViewDialog = true;
+  }
 
-// Modifier une équipe
-modifierEquipe(index: number): void {
-  this.editMode = true;
-  this.editIndex = index;
-  this.newEquipe = { ...this.equipes[index] };
-  this.displayAddForm = true;
-}
+  modifierEquipe(index: number): void {
+    this.editMode = true;
+    this.editIndex = index;
+    this.newEquipe = { ...this.equipes[index] };
+    this.displayAddForm = true;
+  }
+
+  // *** Partie Piscines MODIFIÉE ***
 displayAddPiscine: boolean = false;
-newPiscine = {
+
+newPiscine: Partial<Piscine> = {
   nom: '',
-  ville: ''
+  adresse: '',
+  couloirs: []
 };
 
- piscines = [
-  {
-    nom: "Piscine Olympique d'El Menzah",
-    bassins: "Bassin olympique 50m + bassin de plongée",
-    adresse: "Complexe sportif d'El Menzah, Tunis, Tunisie",
-    telephone: "",
-    image: "assets/piscines/elmenzah.jpg"
-  },
-  {
-    nom: "Piscine Olympique de Radès",
-    bassins: "Bassin olympique 50m, découvert",
-    adresse: "P7X8+3JR, Radès, Tunisie",
-    telephone: "+216 71 468 477",
-    image: "assets/piscines/rades.jpg"
-  },
-  {
-    nom: "Piscine Olympique de Sousse",
-    bassins: "Bassin olympique 50m",
-    adresse: "Boulevard 14 Janvier 2011, Sousse, Tunisie",
-    telephone: "",
-    image: "assets/piscines/sousse.jpg"
-  },
-  {
-    nom: "Piscine Olympique d'Ezzahra",
-    bassins: "Bassin olympique 50m",
-    adresse: "Ezzahra, Gouvernorat de Ben Arous, Tunisie",
-    telephone: "",
-    image: "assets/piscines/ezzahra.jpg"
-  },
-  {
-    nom: "Piscine Hôtel Sheraton",
-    bassins: "25m",
-    adresse: "Avenue de la Ligue des États Arabes, Tunis",
-    telephone: "+216 71 782 100",
-    image: "assets/piscines/sheraton.jpg"
-  },
-  {
-    nom: "Piscine Jerba Sun Club",
-    bassins: "50m et 25m, forme irrégulière",
-    adresse: "BP92 Zone Touristique, Sidi Mahrez, Djerba 4179, Tunisie",
-    telephone: "+216 75 758 758",
-    image: "assets/piscines/jerba.jpg"
-  },
-  {
-    nom: "Marhaba Gym Fitness and Spa",
-    bassins: "25 mètres",
-    adresse: "Boulevard 14 Janvier 2011, 4054 Sousse",
-    telephone: "+216 29 163 700",
-    image: "assets/piscines/marhaba.jpg"
-  }
-];
+newCouloirs: Couloir[] = [];
 
+piscines: Piscine[] = [];
+
+selectedPiscine: Piscine | null = null;
+newCouloir: Couloir = { nom: '', longueur: 50, numero: 1 };
+displayCouloirDialog: boolean = false;
+
+editModePiscine = false;
+editIndexPiscine: number | null = null;
+
+constructor(
+  private adminService: AdminService,
+  private piscineService: PiscineService
+) {}
+
+ngOnInit(): void {
+  this.loadUsers();
+  this.loadPiscines();
+}
+
+loadPiscines() {
+  this.piscineService.getAllPiscines().subscribe({
+    next: (data) => {
+      this.piscines = data;
+    },
+    error: (err) => {
+      console.error('Erreur chargement piscines', err);
+    }
+  });
+}
 
 ajouterPiscine(form: NgForm) {
-  this.piscines.push({
-    ...this.newPiscine,
-    bassins: '',
-    adresse: '',
-    telephone: '',
-    image: ''
+  if (!this.newPiscine.nom || !this.newPiscine.adresse) {
+    return;
+  }
+
+  this.newPiscine.couloirs = this.newCouloirs;
+
+  this.piscineService.createPiscine(this.newPiscine as Piscine).subscribe({
+    next: (createdPiscine) => {
+      this.piscines.push(createdPiscine);
+      this.resetPiscineForm(form);
+    },
+    error: (err) => {
+      console.error('Erreur ajout piscine', err);
+    }
   });
-  this.newPiscine = { nom: '', ville: '' };
+}
+
+modifierPiscine(index: number) {
+  this.editModePiscine = true;
+  this.editIndexPiscine = index;
+
+  const piscine = this.piscines[index];
+  this.newPiscine = { ...piscine };
+  this.newCouloirs = piscine.couloirs ? [...piscine.couloirs] : [];
+
+  this.displayAddPiscine = true;
+}
+
+validerModificationPiscine(form: NgForm) {
+  if (this.editIndexPiscine === null) return;
+
+  if (!this.newPiscine.nom || !this.newPiscine.adresse) return;
+
+  this.newPiscine.couloirs = this.newCouloirs;
+
+  const piscineToUpdate = this.piscines[this.editIndexPiscine];
+
+  this.piscineService.updatePiscine(piscineToUpdate.id!, this.newPiscine as Piscine).subscribe({
+    next: (updatedPiscine) => {
+      this.piscines[this.editIndexPiscine!] = updatedPiscine;
+      this.resetPiscineForm(form);
+      this.editModePiscine = false;
+      this.editIndexPiscine = null;
+    },
+    error: (err) => {
+      console.error('Erreur modification piscine', err);
+    }
+  });
+}
+
+supprimerPiscine(index: number) {
+  const piscineToDelete = this.piscines[index];
+  if (!piscineToDelete.id) return;
+
+  this.piscineService.deletePiscine(piscineToDelete.id).subscribe({
+    next: () => {
+      this.piscines.splice(index, 1);
+    },
+    error: (err) => {
+      console.error('Erreur suppression piscine', err);
+    }
+  });
+}
+
+// Gérer les couloirs dynamiquement
+
+ajouterCouloir() {
+  if (!this.newCouloir.nom || !this.newCouloir.longueur) return;
+
+  const numero = this.newCouloirs.length + 1;
+  const couloirToAdd: Couloir = {
+    ...this.newCouloir,
+    numero
+  };
+
+  this.newCouloirs.push(couloirToAdd);
+
+  // Réinitialise le formulaire de couloir
+  this.newCouloir = { nom: '', longueur: 50, numero: numero + 1 };
+}
+
+
+supprimerCouloir(index: number) {
+  this.newCouloirs.splice(index, 1);
+  // Re-numérotation (optionnel)
+  this.newCouloirs.forEach((c, i) => c.numero = i + 1);
+}
+
+gererCouloirs(piscine: Piscine) {
+  this.selectedPiscine = piscine;
+  this.newCouloir = { nom: '', longueur: 50, numero: 1 };
+  this.displayCouloirDialog = true;
+}
+
+// Réinitialiser formulaire piscine
+private resetPiscineForm(form: NgForm) {
+  this.newPiscine = { nom: '', adresse: '', couloirs: [] };
+  this.newCouloirs = [];
   this.displayAddPiscine = false;
   form.resetForm();
 }
 
-modifierPiscine(index: number) {
-  // Logique de modification à faire selon ton choix
-}
-
-supprimerPiscine(index: number) {
-  this.piscines.splice(index, 1);
-}
-
- // =================== ACCÈS / UTILISATEURS ===================
- users: User[] = [];
+  // *** Partie Accès / Utilisateurs NON MODIFIÉE *** //
+  users: User[] = [];
   selectedUserId?: number;
   selectedRole?: UserType;
   roles: UserType[] = ['SUPER_ADMIN', 'ADMIN', 'COACH', 'ATHLETE'];
   message = '';
 
-  constructor(private adminService: AdminService) { }
-
-  ngOnInit(): void {
-    this.loadUsers();
-  }
-
   loadUsers() {
     this.adminService.getAllUsers().subscribe(users => {
       this.users = users;
-
     });
   }
 
-assignRole() {
-  if (this.selectedUserId && this.selectedRole) {
-    const request: UserRoleAssignmentRequest = {
-      userId: this.selectedUserId,
-      role: this.selectedRole
-    };
-  this.adminService.assignRole(request).subscribe({
-  next: (response) => {
-    console.log('Réponse assignRole:', response);
-    this.message = 'Rôle modifié avec succès !';
-    this.loadUsers();
-    setTimeout(() => this.message = '', 3000);
-  },
-  error: (err) => {
-    console.error('Erreur assignRole:', err);
-    this.message = 'Erreur lors de la modification du rôle.';
-    setTimeout(() => this.message = '', 3000);
+  assignRole() {
+    if (this.selectedUserId && this.selectedRole) {
+      const request: UserRoleAssignmentRequest = {
+        userId: this.selectedUserId,
+        role: this.selectedRole
+      };
+      this.adminService.assignRole(request).subscribe({
+        next: (response) => {
+          console.log('Réponse assignRole:', response);
+          this.message = 'Rôle modifié avec succès !';
+          this.loadUsers();
+          setTimeout(() => this.message = '', 3000);
+        },
+        error: (err) => {
+          console.error('Erreur assignRole:', err);
+          this.message = 'Erreur lors de la modification du rôle.';
+          setTimeout(() => this.message = '', 3000);
+        }
+      });
+    }
   }
-});
-
-  }
-}
-
-
 
   deleteUser(id: number) {
     this.adminService.deleteUser(id).subscribe(() => {
@@ -242,6 +286,4 @@ assignRole() {
       this.loadUsers();
     });
   }
-
-
-} 
+}

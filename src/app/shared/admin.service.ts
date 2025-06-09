@@ -30,9 +30,10 @@ export class AdminService {
     return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
- assignRole(request: UserRoleAssignmentRequest): Observable<string> {
-  return this.http.post('http://localhost:8081/api/admin/assign-role', request, { responseType: 'text' });
+assignRole(request: UserRoleAssignmentRequest): Observable<string> {
+  return this.http.post(`${this.apiUrl}/assign-role`, request, { responseType: 'text' });
 }
+
 
 
   deleteUser(id: number): Observable<void> {

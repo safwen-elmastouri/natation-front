@@ -45,6 +45,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { PanelAdminComponent } from './features/panel-admin/panel-admin.component';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 
 @NgModule({
@@ -84,6 +87,7 @@ import { Dialog, DialogModule } from '@angular/cdk/dialog';
     MatTooltipModule,
     MatMenuModule,
     MatExpansionModule,
+    
 
     // PrimeNG
     CardModule,
@@ -93,6 +97,9 @@ import { Dialog, DialogModule } from '@angular/cdk/dialog';
     TagModule,
     TableModule,
     TabViewModule,
+    ButtonModule,
+    InputTextModule,
+   
 
     // FullCalendar
     FullCalendarModule,

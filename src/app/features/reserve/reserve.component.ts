@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { Component } from '@angular/core';
 import { FormGroup, FormsModule, NgForm } from '@angular/forms';
+=======
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+>>>>>>> 15eff2c (Sauvegarde avant pull --rebase)
 import { ReservationService } from 'src/app/shared/models/services/reservation.service';
+import { Piscine, PiscineService } from 'src/app/shared/piscine.service';
 
 @Component({
   selector: 'app-reserve',
@@ -10,13 +16,17 @@ import { ReservationService } from 'src/app/shared/models/services/reservation.s
   templateUrl: './reserve.component.html',
   styleUrls: ['./reserve.component.css']
 })
-export class ReserveComponent {
+export class ReserveComponent implements OnInit {
   reservation = this.getEmptyReservation();
   confirmationReservation: any = null;
   submitted = false;
 
-  piscines = ['Piscine A', 'Piscine B'];
+  piscines: Piscine[] = [];
 
+  // Couloirs visibles dans la liste déroulante
+  couloirsDisponibles: { name: string; disponible: boolean }[] = [];
+
+  // Couloirs statiques définis par nom de piscine
   couloirsMap: { [key: string]: { name: string; disponible: boolean }[] } = {
     'Piscine A': [
       { name: '1', disponible: true },
@@ -30,10 +40,43 @@ export class ReserveComponent {
     ]
   };
 
-  constructor(private reservationService: ReservationService) {}
+  constructor(
+    private reservationService: ReservationService,
+    private piscineService: PiscineService
+  ) {}
 
-  getCouloirsForPiscine(piscine: string) {
-    return this.couloirsMap[piscine] || [];
+  ngOnInit() {
+    this.loadPiscines();
+  }
+
+  loadPiscines() {
+  this.piscineService.getAllPiscines().subscribe({
+    next: (data) => {
+      this.piscines = data;
+
+      // Construction dynamique des couloirs (exemple aléatoire pour la démo)
+      this.couloirsMap = {};
+      for (const piscine of data) {
+        this.couloirsMap[piscine.nom] = [
+          { name: '1', disponible: true },
+          { name: '2', disponible: false },
+          { name: '3', disponible: true }
+        ];
+      }
+    },
+    error: (err) => {
+      console.error('Erreur récupération piscines:', err);
+    }
+  });
+}
+
+
+  // Cette méthode est appelée dès que le modèle `reservation.piscine` change
+  updateCouloirsForSelectedPiscine() {
+    const piscineNom = this.reservation.piscine;
+    this.couloirsDisponibles = this.couloirsMap[piscineNom] || [];
+    // Réinitialiser la sélection de couloir si piscine change
+    this.reservation.couloir = null;
   }
 
   getEmptyReservation() {
@@ -47,6 +90,7 @@ export class ReserveComponent {
     };
   }
 
+<<<<<<< HEAD
   // onSubmit() {
   //   const newReservation = { ...this.reservation };
   //   this.reservationService.addReservation(newReservation);
@@ -54,6 +98,16 @@ export class ReserveComponent {
   //   this.submitted = true;
   //   this.reservation = this.getEmptyReservation();
   // }
+=======
+  onSubmit() {
+    const newReservation = { ...this.reservation };
+    this.reservationService.addReservation(newReservation);
+    this.confirmationReservation = newReservation;
+    this.submitted = true;
+    this.reservation = this.getEmptyReservation();
+    this.couloirsDisponibles = []; // Réinitialiser aussi la liste des couloirs
+  }
+>>>>>>> 15eff2c (Sauvegarde avant pull --rebase)
 
   closeModal() {
     this.submitted = false;
