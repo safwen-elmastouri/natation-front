@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
-import { Component } from '@angular/core';
 import { FormGroup, FormsModule, NgForm } from '@angular/forms';
-=======
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
->>>>>>> 15eff2c (Sauvegarde avant pull --rebase)
 import { ReservationService } from 'src/app/shared/models/services/reservation.service';
 import { Piscine, PiscineService } from 'src/app/shared/piscine.service';
 
@@ -14,7 +9,7 @@ import { Piscine, PiscineService } from 'src/app/shared/piscine.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './reserve.component.html',
-  styleUrls: ['./reserve.component.css']
+  styleUrls: ['./reserve.component.css'],
 })
 export class ReserveComponent implements OnInit {
   reservation = this.getEmptyReservation();
@@ -31,13 +26,13 @@ export class ReserveComponent implements OnInit {
     'Piscine A': [
       { name: '1', disponible: true },
       { name: '2', disponible: false },
-      { name: '3', disponible: true }
+      { name: '3', disponible: true },
     ],
     'Piscine B': [
       { name: '4', disponible: true },
       { name: '5', disponible: true },
-      { name: '6', disponible: false }
-    ]
+      { name: '6', disponible: false },
+    ],
   };
 
   constructor(
@@ -50,26 +45,25 @@ export class ReserveComponent implements OnInit {
   }
 
   loadPiscines() {
-  this.piscineService.getAllPiscines().subscribe({
-    next: (data) => {
-      this.piscines = data;
+    this.piscineService.getAllPiscines().subscribe({
+      next: (data) => {
+        this.piscines = data;
 
-      // Construction dynamique des couloirs (exemple aléatoire pour la démo)
-      this.couloirsMap = {};
-      for (const piscine of data) {
-        this.couloirsMap[piscine.nom] = [
-          { name: '1', disponible: true },
-          { name: '2', disponible: false },
-          { name: '3', disponible: true }
-        ];
-      }
-    },
-    error: (err) => {
-      console.error('Erreur récupération piscines:', err);
-    }
-  });
-}
-
+        // Construction dynamique des couloirs (exemple aléatoire pour la démo)
+        this.couloirsMap = {};
+        for (const piscine of data) {
+          this.couloirsMap[piscine.nom] = [
+            { name: '1', disponible: true },
+            { name: '2', disponible: false },
+            { name: '3', disponible: true },
+          ];
+        }
+      },
+      error: (err) => {
+        console.error('Erreur récupération piscines:', err);
+      },
+    });
+  }
 
   // Cette méthode est appelée dès que le modèle `reservation.piscine` change
   updateCouloirsForSelectedPiscine() {
@@ -86,11 +80,10 @@ export class ReserveComponent implements OnInit {
       endTime: '',
       equipe: '',
       piscine: '',
-      couloir: null
+      couloir: null,
     };
   }
 
-<<<<<<< HEAD
   // onSubmit() {
   //   const newReservation = { ...this.reservation };
   //   this.reservationService.addReservation(newReservation);
@@ -98,16 +91,6 @@ export class ReserveComponent implements OnInit {
   //   this.submitted = true;
   //   this.reservation = this.getEmptyReservation();
   // }
-=======
-  onSubmit() {
-    const newReservation = { ...this.reservation };
-    this.reservationService.addReservation(newReservation);
-    this.confirmationReservation = newReservation;
-    this.submitted = true;
-    this.reservation = this.getEmptyReservation();
-    this.couloirsDisponibles = []; // Réinitialiser aussi la liste des couloirs
-  }
->>>>>>> 15eff2c (Sauvegarde avant pull --rebase)
 
   closeModal() {
     this.submitted = false;
@@ -122,12 +105,11 @@ export class ReserveComponent implements OnInit {
       this.submitted = true;
       this.reservation = this.getEmptyReservation();
       console.log(this.reservation);
-  
+
       // ✅ Réinitialiser le formulaire (efface valeurs + erreurs)
       form.resetForm();
-  
+
       // Optionnel : vider manuellement reservation si nécessaire
     }
   }
-  
 }
