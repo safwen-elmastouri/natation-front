@@ -9,6 +9,7 @@ import { AthleteProfileComponent } from './views/athlete-profile/athlete-profile
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { PanelAdminComponent } from './features/panel-admin/panel-admin.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,9 +24,7 @@ const routes: Routes = [
         { path: 'login', component: LoginComponent },
                 { path: 'admin', component: PanelAdminComponent },
   { path: 'reset-password', component: LoginComponent }, // 👈 Important
-
-
-
+  { path: 'dashboard', component: DashboardComponent },
 ]
 
 

@@ -22,6 +22,11 @@ export class HeaderNavComponent implements OnInit {
         routerLink: ['/home'],
       },
       {
+        label: 'Dashboard',
+        icon: 'pi pi-chart-bar',
+        routerLink: ['/dashboard'],
+      },
+      {
         label: 'Competitions',
         icon: 'pi pi-star',
         routerLink: ['/competitions']
