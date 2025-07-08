@@ -19,14 +19,18 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
-            "scripts": [],  "allowedCommonJsDependencies": [
-        "canvg",
-        "html2canvas",
-        "core-js",
-        "rgbcolor",
-        "raf"
-      ]
+"styles": [
+  "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+  "src/styles.css"
+],
+"scripts": [],
+"allowedCommonJsDependencies": [
+  "canvg",
+  "html2canvas",
+  "core-js",
+  "rgbcolor",
+  "raf"
+]
           },
           "configurations": {
             "production": {
@@ -83,6 +87,7 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",

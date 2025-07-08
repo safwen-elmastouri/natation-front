@@ -10,7 +10,7 @@ import { EquipeService, Equipe } from '../../shared/equipe.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './reserve.component.html',
-  styleUrls: ['./reserve.component.css']
+  styleUrls: ['./reserve.component.css'],
 })
 export class ReserveComponent implements OnInit {
   reservation = this.getEmptyReservation();
@@ -45,7 +45,7 @@ export class ReserveComponent implements OnInit {
       endTime: '',
       equipe: '',
       piscine: '',
-      couloir: null
+      couloir: null,
     };
   }
 

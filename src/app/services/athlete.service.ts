@@ -1,35 +1,35 @@
+// src/app/services/athlete.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-
-export interface Athlete {
-  id: number;
-  nom: string;
-  discipline: string;
-  specialite: string;
-  description: string;
-  age: number;
-  record: string;
-  titre: string;
-  image: string;
-  events: {
-    id: number;
-    eventTitle: string;
-    competition: { title: string; dateStart: string; dateEnd: string };
-    damesUrl: string;
-    messieursUrl: string;
-    mixteUrl: string;
-    rankings: any[];
-  }[];
-}
+import { Observable } from 'rxjs';
+import { Athlete } from '../models/athlete.model';
 
 @Injectable({ providedIn: 'root' })
 export class AthleteService {
+  private baseUrl = 'http://localhost:8081/api/athlete';
+
   constructor(private http: HttpClient) {}
 
-  getAthlete(id: number): Observable<Athlete|undefined> {
-    return this.http
-      .get<Athlete[]>('assets/athletes.json')
-      .pipe(map(list => list.find(a => a.id === id)));
+  getAthlete(id: number): Observable<Athlete> {
+    return this.http.get<Athlete>(
+      `${this.baseUrl}/getAthletesWithCompetitionsAndEvents/${id}`
+    );
   }
+
+  confirmEvent(eventId: number, athleteId: number, response: boolean | null): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/confirm/${eventId}/${athleteId}/${response}`,
+      {}
+    );
+  }
+  
+  checkEvent(
+    athleteId: number,
+    eventId: number
+  ): Observable<boolean|null> {
+    return this.http.get<boolean|null>(
+      `${this.baseUrl}/check/${athleteId}/${eventId}`
+    );
+  }
+
 }
