@@ -1,4 +1,5 @@
-// athlete-profile.component.ts
+// src/app/components/athlete-profile/athlete-profile.component.ts
+
 import {
   Component,
   OnInit,
@@ -6,15 +7,17 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AthleteService } from '../../services/athlete.service';
 import { MatDialog } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventModalComponent } from './event-modal/event-modal.component';
 import {
   CalendarOptions,
-  EventClickArg
+  EventClickArg,
+  EventInput
 } from '@fullcalendar/core';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import html2canvas from 'html2canvas';
@@ -27,6 +30,16 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import {
+  Athlete,
+  Competition,
+  EventAPI,
+  Ranking
+} from '../../models/athlete.model';
+
+declare const FB: any;
 
 @Component({
   selector: 'app-athlete-profile',
@@ -41,40 +54,44 @@ import {
   ]
 })
 export class AthleteProfileComponent implements OnInit, AfterViewInit {
-  athlete: any = null;
+  athlete: Athlete | null = null;
   hasError = false;
   modalOpen = false;
   menuOpen = false;
+  sharing = false;
 
   displayedColumns = ['event', 'place', 'points'];
-  dataSource = new MatTableDataSource<any>([]);
+  dataSource = new MatTableDataSource<Ranking & { eventName: string }>([]);
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-    events: [],
-    eventClick: this.onEventClick.bind(this),
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: ''
     },
+    events: [],
+    eventClick: this.onEventClick.bind(this),
     height: 'auto'
   };
 
-  // NOTE: static: false so Angular waits for *ngIf block to render
   @ViewChild('calendarWrap', { static: false })
   calendarWrap!: ElementRef<HTMLElement>;
 
+  @ViewChild('fullcalendar', { static: false })
+  fullcalendar!: FullCalendarComponent;
+
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private athleteSvc: AthleteService,
-    private http: HttpClient,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
+    this.loadFacebookSdk();
+
     const idParam = this.route.snapshot.paramMap.get('id');
     const athleteId = idParam ? +idParam : null;
     if (athleteId === null || isNaN(athleteId)) {
@@ -83,79 +100,224 @@ export class AthleteProfileComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.athleteSvc.getAthlete(athleteId).subscribe(a => {
-      if (!a) {
-        console.error('Aucun athlète trouvé avec cet ID');
+    this.athleteSvc.getAthlete(athleteId).subscribe({
+      next: athlete => {
+        this.athlete = athlete;
+        this.buildRankingsTable();
+        this.buildCalendarEvents();
+      },
+      error: () => {
         this.hasError = true;
-        return;
       }
-      this.athlete = a;
-      this.calendarOptions.events = a.events.map((e: any) => ({
-        id: String(e.id),
-        title: e.eventTitle,
-        start: e.competition.dateStart,
-        end: e.competition.dateEnd
-      }));
-      this.dataSource.data = a.events.flatMap((e: any) =>
-        e.rankings.map((r: any) => ({ ...r, eventName: e.eventTitle }))
-      );
     });
   }
 
-  ngAfterViewInit() {
-    // calendarWrap is now defined whenever *ngIf allows it to exist
+  ngAfterViewInit() {}
+
+  private loadFacebookSdk() {
+    if ((window as any).fbAsyncInit) return;
+    (window as any).fbAsyncInit = () => {
+      FB.init({
+        appId: '1926438911094293',
+        cookie: true,
+        xfbml: true,
+        version: 'v14.0'
+      });
+    };
+    const d = document, s = 'script', id = 'facebook-jssdk';
+    if (d.getElementById(id)) return;
+    const jsElem = d.createElement(s) as HTMLScriptElement;
+    jsElem.id = id;
+    jsElem.src = 'https://connect.facebook.net/en_US/sdk.js';
+    d.getElementsByTagName('head')[0].appendChild(jsElem);
+  }
+
+  private buildRankingsTable() {
+    if (!this.athlete) return;
+    const list: (Ranking & { eventName: string })[] = [];
+    this.athlete.competitions.forEach((comp: Competition) => {
+      comp.events.forEach((e: EventAPI) => {
+        e.rankings.forEach(r => list.push({ ...r, eventName: e.eventTitle }));
+      });
+    });
+    this.dataSource.data = list;
+  }
+
+  private buildCalendarEvents() {
+    if (!this.athlete) return;
+
+    const obsList: Observable<EventInput>[] = [];
+
+    this.athlete.competitions.forEach((comp: Competition) => {
+      comp.events.forEach((e: EventAPI) => {
+        const base: Omit<EventInput, 'backgroundColor'|'borderColor'> = {
+          id: String(e.id),
+          title: e.eventTitle,
+          start: comp.dateStart,
+          end: comp.dateEnd,
+          extendedProps: {
+            damesUrl: e.damesUrl,
+            messieursUrl: e.messieursUrl,
+            mixteUrl: e.mixteUrl,
+            competition: {
+              title: comp.title,
+              dateStart: comp.dateStart,
+              dateEnd: comp.dateEnd
+            }
+          }
+        };
+
+        const obs = this.athleteSvc
+          .checkEvent(this.athlete!.id, e.id)
+          .pipe(
+            map(status => {
+              let color: string;
+              if (status === null) {
+                color = 'gray';
+                this.snackBar.open(
+                  `Veuillez confirmer votre participation à "${e.eventTitle}"`,
+                  'Fermer',
+                  { duration: 4000 }
+                );
+              } else if (status === false) {
+                color = 'red';
+                this.snackBar.open(
+                  `Vous avez refusé "${e.eventTitle}"`,
+                  'Fermer',
+                  { duration: 4000 }
+                );
+              } else {
+                color = 'green';
+                this.snackBar.open(
+                  `Participation confirmée pour "${e.eventTitle}"`,
+                  'Fermer',
+                  { duration: 4000 }
+                );
+              }
+              return {
+                ...base,
+                backgroundColor: color,
+                borderColor: color
+              } as EventInput;
+            })
+          );
+
+        obsList.push(obs);
+      });
+    });
+
+    forkJoin(obsList).subscribe(coloredEvents => {
+      this.calendarOptions = {
+        ...this.calendarOptions,
+        events: coloredEvents
+      };
+      this.fullcalendar?.getApi().render();
+    });
   }
 
   onEventClick(arg: EventClickArg) {
-    if (this.modalOpen) return;
-    const ev = this.athlete?.events.find((e: any) => String(e.id) === arg.event.id);
-    if (!ev) return;
-    this.modalOpen = true;
-    const dialogRef = this.dialog.open(EventModalComponent, {
-      data: { event: ev },
-      panelClass: 'event-modal-overlay'
-    });
-    dialogRef.afterClosed().subscribe(() => (this.modalOpen = false));
-  }
+    if (this.modalOpen || !this.athlete) return;
 
-  downloadRankingsCsv(): Blob {
-    const header = ['Événement', 'Classement', 'Points', 'Nom', 'Nation', 'Club'].join(',');
-    const rows = this.dataSource.data.map((r: any) =>
-      [r.eventName, r.place, r.points, r.fullName, r.nation, r.club].join(',')
+    const ev = this.athlete.competitions
+      .flatMap(c => c.events)
+      .find(e => String(e.id) === arg.event.id);
+    if (!ev) return;
+
+    this.modalOpen = true;
+    this.dialog
+      .open(EventModalComponent, {
+        data: {
+          athleteId: this.athlete.id,
+          event: {
+            ...ev,
+            competition: (arg.event.extendedProps as any).competition
+          }
+        },
+        panelClass: 'event-modal-overlay'
+      })
+      .afterClosed()
+      .subscribe(decision => {
+        this.modalOpen = false;
+        // immédiatement mettre à jour la couleur
+        let newColor = 'gray';
+        if (decision === 'accept') newColor = 'green';
+        else if (decision === 'decline') newColor = 'red';
+        // rappel: arg.event est un CalendarApi
+        arg.event.setProp('backgroundColor', newColor);
+        arg.event.setProp('borderColor', newColor);
+      });
+  }
+  downloadCsv(): void {
+    if (!this.athlete) { return; }
+    const header = ['Événement', 'Classement', 'Points'].join(',');
+    const rows = this.dataSource.data.map(r =>
+      [r.eventName, r.place, r.points].join(',')
     );
     const csv = [header, ...rows].join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'classements.csv';
+    link.download = `${this.athlete.nom}_classements.csv`;
     link.click();
-    return blob;
   }
 
   downloadRankingsTextPdf() {
+    if (!this.athlete) { return; }
     const doc = new jsPDF();
     doc.setFontSize(12);
     doc.text(`Classements – ${this.athlete.nom}`, 10, 10);
-    this.dataSource.data.forEach((r: any, i: number) => {
+    let y = 20;
+    this.dataSource.data.forEach((r, i) => {
       doc.text(
         `${i + 1}. ${r.eventName} – Place : ${r.place}, Points : ${r.points}`,
         10,
-        20 + i * 8
+        y
       );
+      y += 8;
     });
     doc.save('classements.pdf');
   }
 
   shareCsv() {
-    const blob = this.downloadRankingsCsv();
-    const form = new FormData();
-    form.append('file', blob, 'classements.csv');
-    this.http.post('http://localhost:8081/sharefile', form)
-      .subscribe(() => alert('Classements partagés !'));
+    if (!this.athlete) { return; }
+    const bullets = this.dataSource.data.map(r =>
+      `• ${r.eventName} : place #${r.place} – ${r.points} pts (${r.nation}, ${r.club})`
+    );
+    const text = `Mes performances – ${this.athlete.nom}\n\n${bullets.join('\n')}`;
+    this.copyToClipboard(text)
+      .then(() => this.snackBar.open('Texte copié dans le presse-papier.', 'Fermer', { duration: 4000 }))
+      .catch(() => this.snackBar.open('Échec de la copie.', 'Fermer', { duration: 4000 }))
+      .finally(() => {
+        FB.ui({ method: 'share', href: window.location.href }, () => {
+          this.sharing = false;
+        });
+      });
+  }
+
+  private copyToClipboard(text: string): Promise<void> {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy') ? resolve() : reject();
+      } catch {
+        reject();
+      } finally {
+        document.body.removeChild(ta);
+      }
+    });
   }
 
   downloadCalendarPdf() {
-    if (!this.calendarWrap) return;
+    if (!this.calendarWrap) { return; }
     html2canvas(this.calendarWrap.nativeElement).then(canvas => {
       const img = canvas.toDataURL('image/png');
       const pdf = new jsPDF('landscape');
@@ -168,21 +330,25 @@ export class AthleteProfileComponent implements OnInit, AfterViewInit {
   }
 
   downloadCalendarTextPdf() {
+    if (!this.athlete) { return; }
     const doc = new jsPDF();
     doc.setFontSize(12);
     doc.text(`Calendrier – ${this.athlete.nom}`, 10, 10);
-    this.athlete.events.forEach((e: any, i: number) => {
-      doc.text(
-        `${i + 1}. ${e.eventTitle} (${e.competition.dateStart} → ${e.competition.dateEnd})`,
-        10,
-        20 + i * 8
-      );
+    let y = 20;
+    this.athlete.competitions.forEach((c, i) => {
+      doc.text(`${i + 1}. ${c.title} (${c.dateStart} → ${c.dateEnd})`, 10, y);
+      y += 8;
+      c.events.forEach(e => {
+        doc.text(`- ${e.eventTitle}`, 15, y);
+        y += 8;
+      });
+      y += 4;
     });
     doc.save('calendrier.pdf');
   }
 
   downloadCalendarImage() {
-    if (!this.calendarWrap) return;
+    if (!this.calendarWrap) { return; }
     html2canvas(this.calendarWrap.nativeElement).then(canvas => {
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/png');
