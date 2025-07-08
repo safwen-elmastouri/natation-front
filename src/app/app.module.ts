@@ -41,6 +41,14 @@ import { CompetitionsComponent } from './views/competitions/competitions.compone
 import { ReserveComponent } from './features/reserve/reserve.component';
 import { FooterComponent } from './features/footer/footer.component';
 import { HeaderNavComponent } from './features/header-nav/header-nav.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { PanelAdminComponent } from './features/panel-admin/panel-admin.component';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
+
 
 @NgModule({
   declarations: [
@@ -50,6 +58,8 @@ import { HeaderNavComponent } from './features/header-nav/header-nav.component';
     AthleteCardComponent,
     AthleteProfileComponent,
     EventModalComponent,
+      RegisterComponent,
+    LoginComponent,
 
   ],
   imports: [
@@ -77,6 +87,7 @@ import { HeaderNavComponent } from './features/header-nav/header-nav.component';
     MatTooltipModule,
     MatMenuModule,
     MatExpansionModule,
+    
 
     // PrimeNG
     CardModule,
@@ -86,9 +97,14 @@ import { HeaderNavComponent } from './features/header-nav/header-nav.component';
     TagModule,
     TableModule,
     TabViewModule,
+    ButtonModule,
+    InputTextModule,
+   
 
     // FullCalendar
     FullCalendarModule,
+    PanelAdminComponent,
+   
   ],
   providers: [],
   bootstrap: [AppComponent],

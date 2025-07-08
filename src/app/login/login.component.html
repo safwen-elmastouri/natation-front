@@ -1,0 +1,123 @@
+<div class="d-flex flex-wrap vh-100">
+  <!-- Partie gauche : Bienvenue -->
+  <div class="col-md-6 left-panel d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-3">Bienvenue</h1>
+    <p class="text-center">Connectez-vous pour accéder à votre compte et profiter de nos services exclusifs.</p>
+    <ul class="list-unstyled mt-4">
+      <li><i class="bi bi-shield-lock-fill me-2"></i> Sécurité renforcée</li>
+      <li><i class="bi bi-lightning-fill me-2"></i> Interface rapide et intuitive</li>
+      <li><i class="bi bi-cloud-arrow-up-fill me-2"></i> Synchronisation multiplateforme</li>
+    </ul>
+  </div>
+
+  <!-- Partie droite : Formulaire -->
+  <div class="col-md-6 d-flex align-items-center justify-content-center">
+    <div class="form-container">
+
+      <!-- Formulaire de connexion -->
+      <form *ngIf="!showForgotPassword && !showResetPasswordForm" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <h2 class="text-center mb-4">Connexion</h2>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Adresse email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="model.password" name="password" required />
+        </div>
+
+        <div class="text-center mb-3">
+          <button type="button" class="btn btn-link p-0" (click)="toggleForgotPassword(true)">
+            Mot de passe oublié ?
+          </button>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.form.valid" routerLink="/home">Se connecter</button>
+
+        <div *ngIf="apiErrorMessage" class="alert alert-danger mt-2">
+          {{ apiErrorMessage }}
+        </div>
+
+        <div class="text-center mt-3">
+          <span>Vous n'avez pas de compte ?</span> <a href="/register">Créer un compte</a>
+        </div>
+      </form>
+
+      <!-- Formulaire de réinitialisation (demande du lien) -->
+      <form *ngIf="showForgotPassword" (ngSubmit)="sendResetLink()" #forgotForm="ngForm">
+        <h5 class="text-center mb-4">Réinitialiser le mot de passe</h5>
+
+        <div class="mb-3">
+          <label for="forgotEmail" class="form-label">Adresse email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="forgotEmail"
+            [(ngModel)]="emailForgotPassword"
+            name="forgotEmail"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-warning w-100" [disabled]="!forgotForm.form.valid">
+          Envoyer le lien de réinitialisation
+        </button>
+
+        <div *ngIf="resetMessage && resetMessage !== ''" class="alert alert-info mt-2">
+          {{ resetMessage }}
+        </div>
+
+        <div class="text-center mt-3">
+          <button type="button" class="btn btn-link p-0" (click)="toggleForgotPassword(false)">
+            ← Retour à la connexion
+          </button>
+        </div>
+      </form>
+
+      <!-- Formulaire de réinitialisation avec token dans l'URL -->
+      <form *ngIf="showResetPasswordForm" (ngSubmit)="resetPassword()" #resetForm="ngForm">
+        <h5 class="text-center mb-4">Nouveau mot de passe</h5>
+
+        <div class="mb-3">
+          <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+          <input
+            type="password"
+            class="form-control"
+            id="newPassword"
+            [(ngModel)]="newPassword"
+            name="newPassword"
+            required
+            minlength="6"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-success w-100" [disabled]="!resetForm.form.valid">
+          Réinitialiser le mot de passe
+        </button>
+
+        <div *ngIf="resetSuccessMessage" class="alert alert-success mt-2">
+          {{ resetSuccessMessage }}
+        </div>
+        <div *ngIf="resetErrorMessage" class="alert alert-danger mt-2">
+          {{ resetErrorMessage }}
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .left-panel {
+    background: linear-gradient(to bottom right, rgba(0,180,219,0.8), rgba(0,131,176,0.8)),
+                url('/assets/images/Swimmer.jpg') center center / cover no-repeat;
+    color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+</style>
+

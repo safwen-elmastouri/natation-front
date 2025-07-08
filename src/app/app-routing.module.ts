@@ -6,6 +6,10 @@ import { CompetitionsComponent } from './views/competitions/competitions.compone
 import { LandingPageComponent } from './component/landing-page/landing-page.component';
 import { ReservationListComponent } from './features/reservation-list/reservation-list.component';
 import { AthleteProfileComponent } from './views/athlete-profile/athlete-profile.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { PanelAdminComponent } from './features/panel-admin/panel-admin.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +20,11 @@ const routes: Routes = [
   { path: 'reservation-list', component: ReservationListComponent },
   
   { path: 'home', component: LandingPageComponent },
-  { path: 'home', component: LandingPageComponent }
+    { path: 'register', component: RegisterComponent },
+        { path: 'login', component: LoginComponent },
+                { path: 'admin', component: PanelAdminComponent },
+  { path: 'reset-password', component: LoginComponent }, // 👈 Important
+  { path: 'dashboard', component: DashboardComponent },
 ]
 
 

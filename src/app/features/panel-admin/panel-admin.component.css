@@ -1,0 +1,137 @@
+/* Général */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f8fb;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  background: linear-gradient(180deg, #0062cc, #004b8d);
+  min-height: 100vh;
+  border-right: 1px solid #003c72;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.sidebar h4 {
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.sidebar .nav-link {
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Topbar */
+header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Dashboard titles */
+h3, h5 {
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+/* Cards */
+.card {
+  transition: transform 0.2s ease;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+/* Dialogs */
+p-dialog .p-dialog-content {
+  padding: 2rem !important;
+}
+
+/* Buttons Custom */
+.custom-btn-view {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+}
+
+.custom-btn-edit {
+  background-color: #facc15;
+  border: none;
+  color: black;
+}
+
+.custom-btn-delete {
+  background-color: #ef4444;
+  border: none;
+  color: white;
+}
+
+.p-button-sm {
+  font-size: 0.875rem;
+  padding: 0.35rem 0.75rem;
+}
+
+/* Forms */
+input[type="text"],
+input[type="file"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
+}
+
+input:focus {
+  border-color: #0062cc;
+  outline: none;
+}
+
+/* Success message */
+.message-success {
+  background-color: #d1f7d6;
+  color: #155724;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+

@@ -24,6 +24,8 @@
     "@fullcalendar/daygrid": "^6.1.17",
     "@fullcalendar/interaction": "^6.1.17",
     "@primeng/themes": "^19.1.0",
+    "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.4.9",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
     "primeflex": "^4.0.0",

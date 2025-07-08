@@ -1,44 +1,67 @@
-<form (ngSubmit)="onSubmit()" #form="ngForm" class="form">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form" novalidate>
   <h2>Réservation du coach – Piscine</h2>
+
+  <!-- Date -->
   <div class="field">
     <label for="date">Date</label>
-    <input id="date" type="date" name="date" [(ngModel)]="reservation.date" required />
+    <input id="date" type="date" name="date" [(ngModel)]="reservation.date" required #date="ngModel" />
+    <div *ngIf="date.invalid && date.touched" class="text-danger">La date est requise.</div>
   </div>
+
+  <!-- Heures -->
   <div class="row">
     <div class="col-md-12 d-flex">
       <div class="field me-3 flex-grow-1">
         <label for="startTime">Heure Début</label>
-        <input id="startTime" type="time" name="startTime" [(ngModel)]="reservation.startTime" required />
+        <input id="startTime" type="time" name="startTime" [(ngModel)]="reservation.startTime" required #startTime="ngModel" />
+        <div *ngIf="startTime.invalid && startTime.touched" class="text-danger">L'heure de début est requise.</div>
       </div>
+
       <div class="field flex-grow-1">
-        <label for="endTime">Heure fin</label>
-        <input id="endTime" type="time" name="endTime" [(ngModel)]="reservation.endTime" required />
+        <label for="endTime">Heure Fin</label>
+        <input id="endTime" type="time" name="endTime" [(ngModel)]="reservation.endTime" required #endTime="ngModel" />
+        <div *ngIf="endTime.invalid && endTime.touched" class="text-danger">L'heure de fin est requise.</div>
+        <div *ngIf="reservation.startTime && reservation.endTime && reservation.endTime <= reservation.startTime" class="text-danger">
+          L'heure de fin doit être après l'heure de début.
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Équipe -->
   <div class="field">
     <label for="equipe">Équipe</label>
-    <input id="equipe" type="text" name="equipe" [(ngModel)]="reservation.equipe" required />
+    <input id="equipe" type="text" name="equipe" [(ngModel)]="reservation.equipe" required minlength="2" #equipe="ngModel" />
+    <div *ngIf="equipe.invalid && equipe.touched" class="text-danger">
+      L'équipe est requise (au moins 2 caractères).
+    </div>
   </div>
 
-  <div class="field">
-    <label for="piscine">Piscine</label>
-    <select id="piscine" name="piscine" [(ngModel)]="reservation.piscine" required>
-      <option value="">-- Choisissez une piscine --</option>
-      <option *ngFor="let p of piscines" [value]="p">{{ p }}</option>
-    </select>
-  </div>
+ <div class="field">
+  <label for="piscine">Piscine</label>
+<select id="piscine" name="piscine" [(ngModel)]="reservation.piscine" (ngModelChange)="updateCouloirsForSelectedPiscine()" required>
+    <option value="">-- Choisissez une piscine --</option>
+    <option *ngFor="let p of piscines" [value]="p.nom">{{ p.nom }}</option>
+  </select>
+</div>
 
-  <div class="field" *ngIf="reservation.piscine">
-    <label for="couloir">Couloir</label>
-    <select id="couloir" name="couloir" [(ngModel)]="reservation.couloir" required>
-      <option [ngValue]="null">-- Choisissez un couloir --</option>
-      <option *ngFor="let c of getCouloirsForPiscine(reservation.piscine)" [ngValue]="c.name"
-        [disabled]="!c.disponible">
-        {{ c.name }} {{ !c.disponible ? '(Réservée)' : '' }}
-      </option>
-    </select>
-  </div>
+
+ <div class="field" *ngIf="reservation.piscine">
+  <label for="couloir">Couloir</label>
+<select
+  id="couloir"
+  name="couloir"
+  [(ngModel)]="reservation.couloir"
+  required>
+
+  <option value="">-- Choisissez un couloir --</option>
+  <option *ngFor="let c of couloirsDisponibles" [value]="c.name" [disabled]="!c.disponible">
+    {{ c.name }} {{ !c.disponible ? '(Réservée)' : '' }}
+  </option>
+</select>
+
+</div>
+
   <button type="submit">Réserver</button>
 </form>
 <!-- Modal de confirmation -->
