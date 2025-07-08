@@ -9,145 +9,196 @@
 <li><a class="nav-link text-white fw-semibold" (click)="view = 'acces'">👤 Accès</a></li>
     </ul>
   </nav>
- <div *ngIf="view === 'equipes'">
-  <!-- Main -->
-  <div class="flex-grow-1 d-flex flex-column bg-light">
 
-    <!-- Topbar -->
+<div *ngIf="view === 'equipes'">
+  <div class="flex-grow-1 d-flex flex-column bg-light">
     <header class="bg-white shadow-sm p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
       <h5 class="mb-0 text-primary">Dashboard Admin</h5>
       <span class="text-muted">Bonjour, Admin 👋</span>
     </header>
 
-    <!-- Content -->
     <main class="p-4 flex-grow-1">
-
-      <!-- Section title -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold text-primary">Équipes de natation</h3>
         <div>
-          <!-- Bouton Ajouter -->
           <div class="text-center my-4">
-            <button pButton label="Ajouter une Équipe" icon="pi pi-plus" class="p-button-rounded p-button-success" (click)="displayAddForm = true"></button>
+            <button
+              pButton
+              class="p-button-rounded p-button-success"
+              (click)="openAddForm()"
+            >
+              <i class="pi pi-plus"></i> Ajouter une Équipe
+            </button>
           </div>
-<p-dialog 
-  header="Nouvelle Équipe" 
-  [(visible)]="displayAddForm" 
-  [modal]="true" 
-  [style]="{ width: '400px' }" 
-  [closable]="true" 
-  styleClass="rounded-lg">
-  
-  <form (ngSubmit)="ajouterEquipe(formAjout)" #formAjout="ngForm" class="p-fluid space-y-4">
-    <div class="field">
-      <label for="nom" class="font-semibold mb-1 block">Nom de l'équipe</label>
-      <input 
-        id="nom" 
-        name="nom" 
-        type="text" 
-        pInputText 
-        class="w-full" 
-        required 
-        placeholder="Ex : Les Aigles" 
-        [(ngModel)]="newEquipe.nom" />
-    </div>
-
-    <div class="field">
-      <label for="coach" class="font-semibold mb-1 block">Coach</label>
-      <input 
-        id="coach" 
-        name="coach" 
-        type="text" 
-        pInputText 
-        class="w-full" 
-        required 
-        placeholder="Nom du coach" 
-        [(ngModel)]="newEquipe.coach" />
-    </div>
-
-    <div class="field">
-      <label for="image" class="font-semibold mb-1 block">Image</label>
-      <input 
-        id="image" 
-        name="image" 
-        type="file" 
-        (change)="onImageUpload($event)" 
-        pInputText 
-        class="w-full" />
-    </div>
-
-    <!-- Aperçu de l’image téléchargée -->
-    <div *ngIf="newEquipe.image" class="text-center">
-      <img [src]="newEquipe.image" alt="Aperçu" class="max-h-40 rounded shadow my-2" />
-    </div>
-
-    <div class="text-right">
-      <button 
-        type="submit" 
-        pButton 
-        label="Ajouter" 
-        icon="pi pi-check" 
-        class="p-button-success w-full py-2" 
-        [disabled]="!formAjout.valid">
-      </button>
-    </div>
-  </form>
-</p-dialog>
-
-
-
-
-
-          <button class="btn btn-outline-secondary"><i class="bi bi-download"></i> Exporter</button>
+          <button class="btn btn-outline-secondary">
+            <i class="bi bi-download"></i> Exporter
+          </button>
         </div>
       </div>
 
-      <!-- Cards grid -->
+      <!-- Dialog Ajout / Modif -->
+      <p-dialog
+        [header]="editMode ? 'Modifier Équipe' : 'Nouvelle Équipe'"
+        [(visible)]="displayAddForm"
+        [modal]="true"
+        [style]="{ width: '400px' }"
+        [closable]="true"
+        styleClass="rounded-lg"
+      >
+        <form (ngSubmit)="ajouterEquipe(formAjout)" #formAjout="ngForm" class="p-fluid space-y-4">
+          <div class="field">
+            <label for="nom" class="font-semibold mb-1 block">Nom de l'équipe</label>
+            <input
+              id="nom"
+              name="nom"
+              type="text"
+              pInputText
+              class="w-full"
+              required
+              placeholder="Ex : Les Aigles"
+              [(ngModel)]="newEquipe.nom"
+            />
+          </div>
+
+          <div class="field">
+            <label for="coachEmail" class="font-semibold mb-1 block">Email du Coach</label>
+            <input
+              id="coachEmail"
+              name="coachEmail"
+              type="email"
+              pInputText
+              class="w-full"
+              required
+              placeholder="coach@example.com"
+              [(ngModel)]="newEquipe.coachEmail"
+            />
+          </div>
+
+          <div class="field">
+            <label for="image" class="font-semibold mb-1 block">Image</label>
+            <input
+              id="image"
+              name="image"
+              type="file"
+              (change)="onImageUpload($event)"
+              pInputText
+              class="w-full"
+            />
+          </div>
+
+          <div *ngIf="newEquipe.imagePath" class="text-center">
+            <img [src]="newEquipe.imagePath" alt="Aperçu" class="max-h-40 rounded shadow my-2" />
+          </div>
+
+          <div class="text-right">
+            <button
+              type="submit"
+              pButton
+              class="p-button-success w-full py-2"
+              [disabled]="!formAjout.valid"
+            >
+              {{ editMode ? 'Modifier' : 'Ajouter' }}
+            </button>
+          </div>
+        </form>
+      </p-dialog>
+
+      <!-- Liste cartes équipes -->
       <div class="row g-4">
-        <div class="col-md-6 col-lg-4" *ngFor="let equipe of equipes; let i = index"
->
+        <div class="col-md-6 col-lg-4" *ngFor="let equipe of equipes; let i = index">
           <div class="card shadow-lg border-0 h-100" style="border-radius: 10px;">
-            <img [src]="equipe.image" class="card-img-top" alt="Equipe photo" style="height: 180px; object-fit: cover; border-radius: 10px;">
+            <img
+              [src]="equipe.imagePath"
+              class="card-img-top"
+              alt="Equipe photo"
+              style="height: 180px; object-fit: cover; border-radius: 10px;"
+            />
             <div class="card-body">
               <h5 class="card-title text-primary">{{ equipe.nom }}</h5>
-              <p class="card-text mb-2"><strong>Coach :</strong> {{ equipe.coach }}</p>
+              <p class="card-text mb-2">
+                <strong>Coach Email :</strong> {{ equipe.coach?.user?.email || 'Non renseigné' }}
+              </p>
             </div>
             <div class="card-footer bg-white border-0 pt-4 d-flex justify-content-center">
               <div class="d-flex flex-wrap justify-content-center gap-3">
-                <button  class="p-button p-button-rounded p-button-sm custom-btn-view" pButton icon="pi pi-eye" label="Voir" (click)="voirEquipe(equipe)"></button>
-                <button class="p-button p-button-rounded p-button-sm custom-btn-edit" pButton icon="pi pi-pencil" label="Modifier" (click)="modifierEquipe(i)"></button>
-                <button class="p-button p-button-rounded p-button-sm custom-btn-delete" pButton icon="pi pi-trash" label="Supprimer" (click)="supprimerEquipe(i)"></button>
+                <button
+                  class="p-button p-button-rounded p-button-sm custom-btn-view"
+                  pButton
+                  icon="pi pi-eye"
+                  label="Voir"
+                  (click)="voirEquipe(equipe)"
+                ></button>
+                <button
+                  class="p-button p-button-rounded p-button-sm custom-btn-edit"
+                  pButton
+                  icon="pi pi-pencil"
+                  label="Modifier"
+                  (click)="modifierEquipe(i)"
+                ></button>
+                <button
+                  class="p-button p-button-rounded p-button-sm custom-btn-delete"
+                  pButton
+                  icon="pi pi-trash"
+                  label="Supprimer"
+                  (click)="supprimerEquipe(i)"
+                ></button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <p-dialog 
-  header="Détails de l'Équipe" 
-  [(visible)]="displayViewDialog" 
-  [modal]="true" 
-  [style]="{ width: '400px' }" 
-  [closable]="true" 
-  [dismissableMask]="true"
-  styleClass="rounded-lg">
-  
-  <div *ngIf="selectedEquipe" class="p-fluid">
-    <img 
-      [src]="selectedEquipe.image" 
-      alt="Image équipe" 
-      class="w-full rounded shadow mb-3" 
-      style="max-height: 200px; object-fit: cover;" />
-    <h4 class="text-primary">{{ selectedEquipe.nom }}</h4>
-    <p><strong>Coach:</strong> {{ selectedEquipe.coach }}</p>
-    <p><strong>Dernière mise à jour:</strong> {{ selectedEquipe.updatedAt | date: 'medium' }}</p>
-  </div>
-</p-dialog>
 
-
-
+      <!-- Dialog détails équipe -->
+      <p-dialog
+        header="Détails de l'Équipe"
+        [(visible)]="displayViewDialog"
+        [modal]="true"
+        [style]="{ width: '400px' }"
+        [closable]="true"
+        [dismissableMask]="true"
+        styleClass="rounded-lg"
+      >
+        <div *ngIf="selectedEquipe" class="p-fluid">
+          <img
+            [src]="selectedEquipe.imagePath"
+            alt="Image équipe"
+            class="w-full rounded shadow mb-3"
+            style="max-height: 200px; object-fit: cover;"
+          />
+          <h4 class="text-primary">{{ selectedEquipe.nom }}</h4>
+          <p><strong>Coach Email :</strong> {{ selectedEquipe.coach?.user?.email || 'Non renseigné' }}</p>
+        </div>
+      </p-dialog>
     </main>
-  </div> 
+  </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Section gestion des piscines -->
 <div *ngIf="view === 'piscines'" class="flex-grow-1 d-flex flex-column bg-light">
 
@@ -169,7 +220,7 @@
         (click)="
           displayAddPiscine = true; 
           editModePiscine = false; 
-          newPiscine = { nom: '', adresse: '', couloirs: [] };
+          newPiscine = { nom: '', adresse: '', nombreCouloirs: 0, disponible: false, couloirs: [] };
         ">
         Ajouter
       </button>
@@ -216,6 +267,33 @@
           <small *ngIf="adressePiscine.invalid && adressePiscine.touched" class="p-error">L'adresse est obligatoire.</small>
         </div>
 
+        <div class="field mb-3">
+          <label for="nombreCouloirsPiscine">Nombre de couloirs</label>
+          <input
+            id="nombreCouloirsPiscine"
+            name="nombreCouloirsPiscine"
+            type="number"
+            pInputText
+            [(ngModel)]="newPiscine.nombreCouloirs"
+            required
+            min="0"
+            #nombreCouloirsPiscine="ngModel">
+          <small *ngIf="nombreCouloirsPiscine.invalid && nombreCouloirsPiscine.touched" class="p-error">
+            Le nombre de couloirs est obligatoire et doit être &gt;= 0.
+          </small>
+        </div>
+
+        <div class="field-checkbox mb-3 d-flex align-items-center">
+          <p-checkbox
+            inputId="disponiblePiscine"
+            binary="true"
+            [(ngModel)]="newPiscine.disponible"
+            name="disponiblePiscine"
+          ></p-checkbox>
+          <label for="disponiblePiscine" class="ms-2 mb-0">Disponible</label>
+          <p class="ms-3 mb-0">Valeur: {{ newPiscine.disponible }}</p>
+        </div>
+
         <div class="text-end mt-3">
           <button
             pButton
@@ -226,99 +304,104 @@
             {{ editModePiscine ? 'Modifier' : 'Ajouter' }}
           </button>
         </div>
-
       </form>
+
     </p-dialog>
 
     <!-- Dialog gestion des couloirs -->
-   <!-- Dialog gestion des couloirs -->
-<p-dialog
-  [(visible)]="displayCouloirDialog"
-  [modal]="true"
-  [style]="{ width: '600px' }"
-  [closable]="true"
-  [dismissableMask]="true"
-  [header]="'Gérer les couloirs de ' + selectedPiscine?.nom"
-  styleClass="rounded-lg">
+    <p-dialog
+      [(visible)]="displayCouloirDialog"
+      [modal]="true"
+      [style]="{ width: '600px' }"
+      [closable]="true"
+      [dismissableMask]="true"
+      [header]="'Gérer les couloirs de ' + selectedPiscine?.nom"
+      styleClass="rounded-lg">
 
-  <div *ngIf="selectedPiscine">
+      <div *ngIf="selectedPiscine">
 
-    <!-- Liste des couloirs existants -->
-    <div *ngIf="newCouloirs.length > 0" class="mb-4">
-      <h6 class="text-muted">Couloirs existants :</h6>
-      <ul class="list-group">
-        <li
-          *ngFor="let couloir of newCouloirs; let i = index"
-          class="list-group-item d-flex justify-content-between align-items-center">
+        <!-- Liste des couloirs existants -->
+        <div *ngIf="newCouloirs.length > 0" class="mb-4">
+          <h6 class="text-muted">Couloirs existants :</h6>
+          <ul class="list-group">
+            <li
+              *ngFor="let couloir of newCouloirs; let i = index"
+              class="list-group-item d-flex justify-content-between align-items-center">
 
-          <div>
-            <strong>Couloir {{ couloir.numero }}</strong> - {{ couloir.nom || 'Sans nom' }} ({{ couloir.longueur }} m)
+              <div>
+                <strong>Couloir {{ couloir.numero || (i + 1) }}</strong> - {{ couloir.nom || 'Sans nom' }} ({{ couloir.longueur }} m)
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="supprimerCouloir(i)">
+                🗑️ Supprimer
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Formulaire ajout d’un nouveau couloir -->
+        <form
+          #formCouloir="ngForm"
+          (ngSubmit)="ajouterCouloir()"
+          class="p-fluid">
+
+          <div class="field mb-3">
+            <label for="nomCouloir">Nom du couloir</label>
+            <input
+              id="nomCouloir"
+              name="nomCouloir"
+              type="text"
+              pInputText
+              [(ngModel)]="newCouloir.nom"
+              required>
           </div>
 
+          <div class="field mb-3">
+            <label for="longueurCouloir">Longueur (m)</label>
+            <input
+              id="longueurCouloir"
+              name="longueurCouloir"
+              type="number"
+              pInputText
+              [(ngModel)]="newCouloir.longueur"
+              required>
+          </div>
+
+          <div class="text-end mt-2">
+            <button
+              pButton
+              type="submit"
+              class="p-button-info"
+              icon="pi pi-plus"
+              [disabled]="formCouloir.invalid">
+              Ajouter Couloir
+            </button>
+          </div>
+        </form>
+
+        <!-- Boutons Valider et Fermer -->
+        <div class="text-end mt-4">
           <button
+            pButton
             type="button"
-            class="btn btn-sm btn-outline-danger"
-            (click)="supprimerCouloir(i)">
-            🗑️ Supprimer
+            class="p-button-success me-2"
+            (click)="validerCouloirs()">
+            Valider les couloirs
           </button>
-        </li>
-      </ul>
-    </div>
+          <button
+            pButton
+            type="button"
+            class="p-button-secondary"
+            (click)="displayCouloirDialog = false">
+            Fermer
+          </button>
+        </div>
 
-    <!-- Formulaire ajout d’un nouveau couloir -->
-    <form
-      #formCouloir="ngForm"
-      (ngSubmit)="ajouterCouloir()"
-      class="p-fluid">
-
-      <div class="field mb-3">
-        <label for="nomCouloir">Nom du couloir</label>
-        <input
-          id="nomCouloir"
-          name="nomCouloir"
-          type="text"
-          pInputText
-          [(ngModel)]="newCouloir.nom"
-          required>
       </div>
-
-      <div class="field mb-3">
-        <label for="longueurCouloir">Longueur (m)</label>
-        <input
-          id="longueurCouloir"
-          name="longueurCouloir"
-          type="number"
-          pInputText
-          [(ngModel)]="newCouloir.longueur"
-          required>
-      </div>
-
-      <div class="text-end mt-2">
-        <button
-          pButton
-          type="submit"
-          class="p-button-info"
-          icon="pi pi-plus"
-          [disabled]="formCouloir.invalid">
-          Ajouter Couloir
-        </button>
-      </div>
-    </form>
-
-    <!-- Bouton de fermeture -->
-    <div class="text-end mt-4">
-      <button
-        pButton
-        type="button"
-        class="p-button-secondary"
-        (click)="displayCouloirDialog = false">
-        Fermer
-      </button>
-    </div>
-
-  </div>
-</p-dialog>
-
+    </p-dialog>
 
     <!-- Grille de cartes -->
     <div class="row g-4 mt-2">
@@ -332,8 +415,8 @@
             <p class="mb-1"><strong>Adresse :</strong> {{ piscine.adresse }}</p>
             <p class="mb-1"><strong>Nombre de couloirs :</strong> {{ piscine.couloirs?.length || 0 }}</p>
             <ul class="mb-1 ps-3">
-              <li *ngFor="let couloir of piscine.couloirs">
-                Couloir {{ couloir.nom }} - {{ couloir.longueur }} m
+              <li *ngFor="let couloir of piscine.couloirs; let i = index">
+                Couloir {{ couloir.numero || (i + 1) }} - {{ couloir.nom || 'Sans nom' }} - {{ couloir.longueur }} m
               </li>
             </ul>
           </div>

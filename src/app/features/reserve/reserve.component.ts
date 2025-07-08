@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-import { FormGroup, FormsModule, NgForm } from '@angular/forms';
-=======
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
->>>>>>> 15eff2c (Sauvegarde avant pull --rebase)
+import { FormsModule, NgForm } from '@angular/forms';
 import { ReservationService } from 'src/app/shared/models/services/reservation.service';
-import { Piscine, PiscineService } from 'src/app/shared/piscine.service';
+import { PiscineService, Piscine, Couloir } from '../../shared/piscine.service';
+import { EquipeService, Equipe } from '../../shared/equipe.service';
 
 @Component({
   selector: 'app-reserve',
@@ -22,61 +18,24 @@ export class ReserveComponent implements OnInit {
   submitted = false;
 
   piscines: Piscine[] = [];
-
-  // Couloirs visibles dans la liste déroulante
-  couloirsDisponibles: { name: string; disponible: boolean }[] = [];
-
-  // Couloirs statiques définis par nom de piscine
-  couloirsMap: { [key: string]: { name: string; disponible: boolean }[] } = {
-    'Piscine A': [
-      { name: '1', disponible: true },
-      { name: '2', disponible: false },
-      { name: '3', disponible: true }
-    ],
-    'Piscine B': [
-      { name: '4', disponible: true },
-      { name: '5', disponible: true },
-      { name: '6', disponible: false }
-    ]
-  };
+  equipes: Equipe[] = [];
+  couloirs: Couloir[] = [];
 
   constructor(
     private reservationService: ReservationService,
-    private piscineService: PiscineService
+    private piscineService: PiscineService,
+    private equipeService: EquipeService
   ) {}
 
   ngOnInit() {
-    this.loadPiscines();
-  }
-
-  loadPiscines() {
-  this.piscineService.getAllPiscines().subscribe({
-    next: (data) => {
+    this.piscineService.getAllPiscines().subscribe((data) => {
+      console.log('Piscines chargées :', data); // 👈 utile pour debug
       this.piscines = data;
+    });
 
-      // Construction dynamique des couloirs (exemple aléatoire pour la démo)
-      this.couloirsMap = {};
-      for (const piscine of data) {
-        this.couloirsMap[piscine.nom] = [
-          { name: '1', disponible: true },
-          { name: '2', disponible: false },
-          { name: '3', disponible: true }
-        ];
-      }
-    },
-    error: (err) => {
-      console.error('Erreur récupération piscines:', err);
-    }
-  });
-}
-
-
-  // Cette méthode est appelée dès que le modèle `reservation.piscine` change
-  updateCouloirsForSelectedPiscine() {
-    const piscineNom = this.reservation.piscine;
-    this.couloirsDisponibles = this.couloirsMap[piscineNom] || [];
-    // Réinitialiser la sélection de couloir si piscine change
-    this.reservation.couloir = null;
+    this.equipeService.getAllEquipes().subscribe((data) => {
+      this.equipes = data;
+    });
   }
 
   getEmptyReservation() {
@@ -90,28 +49,11 @@ export class ReserveComponent implements OnInit {
     };
   }
 
-<<<<<<< HEAD
-  // onSubmit() {
-  //   const newReservation = { ...this.reservation };
-  //   this.reservationService.addReservation(newReservation);
-  //   this.confirmationReservation = newReservation;
-  //   this.submitted = true;
-  //   this.reservation = this.getEmptyReservation();
-  // }
-=======
-  onSubmit() {
-    const newReservation = { ...this.reservation };
-    this.reservationService.addReservation(newReservation);
-    this.confirmationReservation = newReservation;
-    this.submitted = true;
-    this.reservation = this.getEmptyReservation();
-    this.couloirsDisponibles = []; // Réinitialiser aussi la liste des couloirs
-  }
->>>>>>> 15eff2c (Sauvegarde avant pull --rebase)
-
-  closeModal() {
-    this.submitted = false;
-    this.confirmationReservation = null;
+  onPiscineChange() {
+    const selectedPiscine = this.piscines.find(p => p.nom === this.reservation.piscine);
+    console.log('Piscine sélectionnée :', selectedPiscine); // 👈 vérifie que les couloirs sont là
+    this.couloirs = selectedPiscine?.couloirs || [];
+    this.reservation.couloir = null;
   }
 
   onSubmit(form: NgForm) {
@@ -121,13 +63,12 @@ export class ReserveComponent implements OnInit {
       this.confirmationReservation = newReservation;
       this.submitted = true;
       this.reservation = this.getEmptyReservation();
-      console.log(this.reservation);
-  
-      // ✅ Réinitialiser le formulaire (efface valeurs + erreurs)
       form.resetForm();
-  
-      // Optionnel : vider manuellement reservation si nécessaire
     }
   }
-  
+
+  closeModal() {
+    this.submitted = false;
+    this.confirmationReservation = null;
+  }
 }

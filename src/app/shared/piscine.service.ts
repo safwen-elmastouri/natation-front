@@ -14,9 +14,11 @@ export interface Piscine {
   id?: number;
   nom: string;
   adresse: string;
-  disponible?: boolean;
+  nombreCouloirs: number;
+  disponible: boolean;
   couloirs: Couloir[];
 }
+
 
 @Injectable({
   providedIn: 'root'
