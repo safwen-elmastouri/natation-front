@@ -29,8 +29,7 @@ export class HeaderNavComponent implements OnInit {
       {
         label: 'Competitions',
         icon: 'pi pi-star',
-        routerLink: ['/competitions']
-
+        routerLink: ['/competitions'],
       },
       {
         label: 'Athletes',
@@ -76,10 +75,11 @@ export class HeaderNavComponent implements OnInit {
         icon: 'pi pi-envelope',
         routerLink: ['/reserve'],
       },
-      // {
-      //   label: 'Classement',
-      //   icon: 'pi pi-envelope',
-      // },
+      {
+        label: 'Classement',
+        icon: 'pi pi-envelope',
+        routerLink: ['/ranking'],
+      },
       {
         label: 'List réservation',
         icon: 'pi pi-envelope',
