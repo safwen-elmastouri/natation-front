@@ -31,39 +31,48 @@
   <!-- Équipe -->
   <div class="field">
     <label for="equipe">Équipe</label>
-    <input id="equipe" type="text" name="equipe" [(ngModel)]="reservation.equipe" required minlength="2" #equipe="ngModel" />
-    <div *ngIf="equipe.invalid && equipe.touched" class="text-danger">
-      L'équipe est requise (au moins 2 caractères).
-    </div>
+    <select id="equipe" name="equipe" [(ngModel)]="reservation.equipe" required #equipe="ngModel">
+      <option value="">-- Choisissez une équipe --</option>
+      <option *ngFor="let e of equipes" [value]="e.nom">{{ e.nom }}</option>
+    </select>
+    <div *ngIf="equipe.invalid && equipe.touched" class="text-danger">L'équipe est requise.</div>
   </div>
 
- <div class="field">
-  <label for="piscine">Piscine</label>
-<select id="piscine" name="piscine" [(ngModel)]="reservation.piscine" (ngModelChange)="updateCouloirsForSelectedPiscine()" required>
-    <option value="">-- Choisissez une piscine --</option>
-    <option *ngFor="let p of piscines" [value]="p.nom">{{ p.nom }}</option>
-  </select>
-</div>
+  <!-- Piscine -->
+  <div class="field">
+    <label for="piscine">Piscine</label>
+    <select id="piscine" name="piscine" [(ngModel)]="reservation.piscine" (change)="onPiscineChange()" required #piscine="ngModel">
+      <option value="">-- Choisissez une piscine --</option>
+      <option *ngFor="let p of piscines" [value]="p.nom" [disabled]="!p.disponible">
+        {{ p.nom }} {{ !p.disponible ? '(Indisponible)' : '' }}
+      </option>
+    </select>
+    <div *ngIf="piscine.invalid && piscine.touched" class="text-danger">Veuillez choisir une piscine disponible.</div>
+  </div>
 
-
- <div class="field" *ngIf="reservation.piscine">
+<div class="field" *ngIf="reservation.piscine && couloirs.length > 0">
   <label for="couloir">Couloir</label>
-<select
-  id="couloir"
-  name="couloir"
-  [(ngModel)]="reservation.couloir"
-  required>
-
-  <option value="">-- Choisissez un couloir --</option>
-  <option *ngFor="let c of couloirsDisponibles" [value]="c.name" [disabled]="!c.disponible">
-    {{ c.name }} {{ !c.disponible ? '(Réservée)' : '' }}
-  </option>
-</select>
-
+  <select id="couloir" name="couloir" [(ngModel)]="reservation.couloir" required #couloir="ngModel">
+    <option [ngValue]="null">-- Choisissez un couloir --</option>
+    <option *ngFor="let c of couloirs" [ngValue]="c.nom">{{ c.nom }}</option>
+  </select>
+  <div *ngIf="couloir.invalid && couloir.touched" class="text-danger">Veuillez choisir un couloir.</div>
 </div>
 
-  <button type="submit">Réserver</button>
+
+  <!-- Bouton de soumission -->
+  <button
+    type="submit"
+    [disabled]="form.invalid || (reservation.endTime && reservation.startTime && reservation.endTime <= reservation.startTime)"
+    [ngClass]="{
+      'btn-disabled': form.invalid || (reservation.endTime <= reservation.startTime),
+      'btn-active': form.valid && reservation.endTime > reservation.startTime
+    }"
+  >
+    Réserver
+  </button>
 </form>
+
 <!-- Modal de confirmation -->
 <div class="modal" *ngIf="submitted && confirmationReservation" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
@@ -79,3 +88,4 @@
     <button (click)="closeModal()">Fermer</button>
   </div>
 </div>
+
