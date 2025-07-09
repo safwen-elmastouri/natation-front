@@ -1,169 +1,53 @@
-  <!-- <div class="championship-header">
-    <h2>{{ championTitle }}</h2>
-    <span class="date-badge"> {{ championDateRange }} </span>
-  </div>
-
-  <p-tabView  [(activeIndex)]="selectedStyle" [style.padding]="'0'">
-    <p-tabPanel header="🏊‍♀️ Nage Libre"></p-tabPanel>
-    <p-tabPanel header="🏊‍♀️ Dos"></p-tabPanel>
-    <p-tabPanel header="🏊‍♀️ Brasse"></p-tabPanel>
-    <p-tabPanel header="🏊‍♀️ Papillon"></p-tabPanel>
-    <p-tabPanel header="🏊‍♀️ 4 Nages"></p-tabPanel>
-  </p-tabView>
-  <p-tabView [(activeIndex)]="selectedGender" [style.padding]="'0'">
-    <p-tabPanel *ngIf="femaleSwimmers" header="Female">
-      <p-table [value]="femaleSwimmers" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>PLACE</th>
-            <th>FULL NAME</th>
-            <th>CLUB</th>
-            <th>TIME</th>
-            <th>POINTS</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
-          <tr>
-            <td>{{ i + 1 }}</td>
-            <td>{{ swimmer.name }}</td>
-            <td>{{ swimmer.club }}</td>
-            <td>{{ swimmer.time }}</td>
-            <td>{{ swimmer.points }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-
-    <p-tabPanel *ngIf="maleSwimmers" header="Men">
-      <p-table [value]="maleSwimmers" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>PLACE</th>
-            <th>FULL NAME</th>
-            <th>CLUB</th>
-            <th>TIME</th>
-            <th>POINTS</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
-          <tr>
-            <td>{{ i + 1 }}</td>
-            <td>{{ swimmer.name }}</td>
-            <td>{{ swimmer.club }}</td>
-            <td>{{ swimmer.time }}</td>
-            <td>{{ swimmer.points }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-  </p-tabView>
-  <div>
-  </div> -->
-
-
-
-  <section id="features" class="container">
-    <div class="header">
-      <h1>Nos Activités</h1>
-      <p>Découvrez les principales missions et services de la Fédération Tunisienne de Natation.</p>
-    </div>
-
-    <div class="grid">
-      <div class="card cyan">
-        <div class="icon">
-          <i class="pi pi-flag"></i>
-        </div>
-        <h5>Compétitions Nationales</h5>
-        <span>Organisation de championnats à travers la Tunisie.</span>
-      </div>
-
-      <div class="card blue">
-        <div class="icon">
-          <i class="pi pi-calendar"></i>
-        </div>
-        <h5>Calendrier Officiel</h5>
-        <span>Planning annuel des événements et des stages.</span>
-      </div>
-
-      <div class="card teal">
-        <div class="icon">
-          <i class="pi pi-users"></i>
-        </div>
-        <h5>Clubs Affiliés</h5>
-        <span>Liste des clubs membres et leurs coordonnées.</span>
-      </div>
-
-      <div class="card pink">
-        <div class="icon">
-          <i class="pi pi-graduation-cap"></i>
-        </div>
-        <h5>Formation</h5>
-        <span>Stages pour entraîneurs, arbitres et officiels techniques.</span>
-      </div>
-
-      <div class="card orange">
-        <div class="icon">
-          <i class="pi pi-star"></i>
-        </div>
-        <h5>Palmarès</h5>
-        <span>Les performances des nageurs tunisiens.</span>
-      </div>
-
-      <div class="card indigo">
-        <div class="icon">
-          <i class="pi pi-file"></i>
-        </div>
-        <h5>Règlements</h5>
-        <span>Règlements sportifs, administratifs et techniques.</span>
-      </div>
-    </div>
-
-</section>
-
-
-<div  style="  background:#d1d5db;border-radius: 10px;">
-<div id="highlights" class="container">
-<div class="section-title text-center">
-<div class="title">Partout avec Vous</div>
-<span class="subtitle">La Fédération Tunisienne de Natation au bout des doigts</span>
+<div>
+  <span>Classement des athlétes</span>
 </div>
 
-
-<!-- First section -->
-<div class="grid-section">
-<div class="image-box bg-purple">
-  <img src="../../../assets/images/phone.png" alt="mockup mobile" />
+<!-- Search input -->
+<div class="search-container" style="margin: 1rem 0;">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange()"
+    placeholder="Rechercher par nom, club, points ou temps"
+    class="search-input"
+    style="width: 100%; padding: 0.5rem; font-size: 1rem;"
+  />
 </div>
 
-<div class="text-box text-right">
-  <div class="icon-box bg-purple-light">
-    <i class="pi pi-fw pi-mobile icon text-purple-700"></i>
-  </div>
-  <div class="heading"> Toujours connectés à la natation tunisienne</div>
-  <span class="description">
-    Consultez vos performances personnelles, téléchargez vos convocations officielles, suivez vos résultats aux compétitions régionales et nationales. L’espace licencié est votre assistant de bord !
-  </span>
-</div>
-</div>
-
-<!-- Second section -->
-<div class="grid-section reverse">
-<div class="text-box text-left">
-  <div class="icon-box bg-yellow-light">
-    <i class="pi pi-fw pi-desktop icon text-yellow-700"></i>
-  </div>
-  <div class="heading">Résultats en Temps Réel</div>
-  <span class="description">
-    Suivez les performances de vos nageurs préférés en direct, depuis les compétitions régionales ou nationales. Classements, chronos et statistiques à jour instantanément.
-
-  </span>
-</div>
-
-<div class="image-box bg-yellow">
-  <img src="https://primefaces.org/cdn/templates/sakai/landing/mockup-desktop.png" alt="mockup desktop" />
-</div>
-</div>
-</div>
-
-
-</div>
+<p-table
+  [value]="filteredSwimmers"
+  [paginator]="true"
+  [rows]="15"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  responsiveLayout="scroll"
+  sortMode="multiple"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="place">
+        PLACE <p-sortIcon field="place"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        FULL NAME <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="club">
+        CLUB <p-sortIcon field="club"></p-sortIcon>
+      </th>
+      <th pSortableColumn="time">
+        TIME <p-sortIcon field="time"></p-sortIcon>
+      </th>
+      <th pSortableColumn="points">
+        POINTS <p-sortIcon field="points"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
+    <tr>
+      <td>{{ swimmer.place }}</td>
+      <td>{{ swimmer.name }}</td>
+      <td>{{ swimmer.club }}</td>
+      <td>{{ swimmer.time }}</td>
+      <td>{{ swimmer.points }}</td>
+    </tr>
+  </ng-template>
+</p-table>

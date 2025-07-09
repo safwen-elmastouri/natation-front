@@ -6,3 +6,21 @@
   display: inline-flex;
   flex-direction: column;
 }
+
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #666;
+  font-size: 1.2em;
+  margin: 40px 0;
+  width: 100%;
+}
+
+.no-data-message .icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
