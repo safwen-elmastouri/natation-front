@@ -9,4 +9,7 @@
       [categoryLabel]="comp.categoryLabel"
     />
   </div>
+  <div *ngIf="competitions.length === 0" class="no-data-message">
+    <p>No competitions found</p>
+  </div>
 </div>

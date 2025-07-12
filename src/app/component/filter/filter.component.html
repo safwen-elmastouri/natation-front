@@ -10,6 +10,7 @@
       inputId="saison"
       [options]="saisons"
       [(ngModel)]="selectedSaison"
+      (ngModelChange)="applyFilters()"
       placeholder="Sélectionnez une saison"
       optionLabel="label"
       optionValue="value">
@@ -22,6 +23,7 @@
       inputId="competition"
       [options]="competitions"
       [(ngModel)]="selectedCompetition"
+      (ngModelChange)="applyFilters()"
       placeholder="Toutes les compétitions"
       optionLabel="label"
       optionValue="value">
@@ -34,6 +36,7 @@
       inputId="categorie"
       [options]="categories"
       [(ngModel)]="selectedCategorie"
+      (ngModelChange)="applyFilters()"
       placeholder="Toutes les catégories"
       optionLabel="label"
       optionValue="value">
@@ -46,6 +49,7 @@
       inputId="bassin"
       [options]="bassins"
       [(ngModel)]="selectedBassin"
+      (ngModelChange)="applyFilters()"
       placeholder="Tous les bassins"
       optionLabel="label"
       optionValue="value">
@@ -58,6 +62,7 @@
       inputId="sexe"
       [options]="sexes"
       [(ngModel)]="selectedSexe"
+      (ngModelChange)="applyFilters()"
       placeholder="Tous"
       optionLabel="label"
       optionValue="value">
@@ -65,8 +70,8 @@
   </div>
 
   <p-button
-    label="Appliquer les filtres"
-    class="p-button-raised p-button-primary full-width"
-    (onClick)="applyFilters()">
+    label="Réinitialiser les filtres"
+    class="p-button-secondary full-width"
+    (onClick)="resetFilters()">
   </p-button>
 </div>
