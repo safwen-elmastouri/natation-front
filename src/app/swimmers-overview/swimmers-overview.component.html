@@ -2,18 +2,28 @@
   <span>Classement des athlétes</span>
 </div>
 
-<!-- Search input -->
-<div class="search-container" style="margin: 1rem 0;">
+<!-- Gender selection -->
+<div style="margin: 1rem 0">
+  <button (click)="onGenderChange(0)" [disabled]="selectedGender === 0">
+    Dames
+  </button>
+  <button (click)="onGenderChange(1)" [disabled]="selectedGender === 1">
+    Messieurs
+  </button>
+</div>
+
+<!-- Search box -->
+<div class="search-container" style="margin: 1rem 0">
   <input
     type="text"
     [(ngModel)]="searchTerm"
     (ngModelChange)="onSearchChange()"
     placeholder="Rechercher par nom, club, points ou temps"
-    class="search-input"
-    style="width: 100%; padding: 0.5rem; font-size: 1rem;"
+    style="width: 100%; padding: 0.5rem; font-size: 1rem"
   />
 </div>
 
+<!-- PrimeNG table with pagination -->
 <p-table
   [value]="filteredSwimmers"
   [paginator]="true"
@@ -21,6 +31,7 @@
   [tableStyle]="{ 'min-width': '50rem' }"
   responsiveLayout="scroll"
   sortMode="multiple"
+  [(selection)]="selectedSwimmer"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -41,7 +52,7 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-swimmer let-i="rowIndex">
+  <ng-template pTemplate="body" let-swimmer>
     <tr>
       <td>{{ swimmer.place }}</td>
       <td>{{ swimmer.name }}</td>
