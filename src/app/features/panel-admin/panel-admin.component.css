@@ -135,3 +135,189 @@ input:focus {
 }
 
 
+button.p-button {
+  min-width: 100px;
+  border-radius: 8px;
+}
+.custom-dialog-shadow .p-dialog-content {
+  padding: 2.5rem 2rem !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-equipe {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.label-custom {
+  font-weight: 600;
+  color: #004b8d;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 1rem;
+}
+
+.input-custom {
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 2px solid #b0c4de;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-custom:focus {
+  border-color: #0062cc;
+  box-shadow: 0 0 8px rgba(0, 98, 204, 0.3);
+  outline: none;
+}
+
+.button-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem 0;
+  background: linear-gradient(90deg, #0062cc, #004b8d);
+  border: none;
+  color: white !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 98, 204, 0.4);
+}
+
+.btn-submit:disabled {
+  background: #aac3e0 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-submit:not(:disabled):hover {
+  background: linear-gradient(90deg, #004b8d, #0062cc);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 75, 141, 0.6);
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* ← adaptatif */
+  gap: 1.5rem;
+  width: 100%;
+}
+
+
+.team-card {
+   gap: 1.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-left: 6px solid #0062cc; /* Ligne colorée côté gauche */
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.15);
+}
+
+.card-content {
+  padding: 1.6rem 1.8rem 1rem 1.8rem;
+}
+
+.team-name {
+  color: #004b8d;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  font-size: 1.3rem;
+  text-transform: uppercase; /* Majuscule pour le titre */
+  letter-spacing: 1.2px;
+}
+
+.coach-email {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+.card-actions {
+  padding: 1rem 1.8rem 1.6rem 1.8rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #f9fbff;
+  border-top: 1px solid #e3eaf8;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.card-actions button {
+  flex: 1 1 90px;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+  color: white !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-view {
+  background-color: #3b82f6;
+}
+
+.btn-view:hover {
+  background-color: #2563eb;
+  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.6);
+}
+
+.btn-edit {
+  background-color: #facc15;
+  color: #1f2937 !important; /* texte sombre */
+}
+
+.btn-edit:hover {
+  background-color: #eab308;
+  box-shadow: 0 6px 14px rgba(250, 204, 21, 0.6);
+}
+
+.btn-delete {
+  background-color: #ef4444;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.6);
+}
+
+/* Icon spacing */
+button i {
+  font-size: 1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .card-actions button {
+    flex: 1 1 100%;
+  }
+}
+.full-width-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem 2rem;
+}
